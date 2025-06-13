@@ -1,0 +1,91 @@
+:root {
+  /* Light Theme Colors */
+  --m3-primary-light: #6750A4;
+  --m3-on-primary-light: #FFFFFF;
+  --m3-primary-container-light: #EADDFF;
+  --m3-on-primary-container-light: #21005D;
+
+  --m3-secondary-light: #625B71; /* Adjusted from #958DA5 for more M3 feel */
+  --m3-on-secondary-light: #FFFFFF;
+  --m3-secondary-container-light: #E8DEF8;
+  --m3-on-secondary-container-light: #1D192B;
+
+  --m3-tertiary-light: #7D5260; /* Adjusted from #B58392 for more M3 feel */
+  --m3-on-tertiary-light: #FFFFFF;
+  --m3-tertiary-container-light: #FFD8E4;
+  --m3-on-tertiary-container-light: #31111D;
+
+  --m3-neutral-light: #605D62; /* For text */
+  --m3-neutral-variant-light: #79747E; /* For secondary text/icons */
+
+  --m3-background-light: #FFFBFE;
+  --m3-on-background-light: #1C1B1F;
+
+  --m3-surface-light: #FFFBFE; /* Base surface, same as background */
+  --m3-on-surface-light: #1C1B1F;
+  --m3-surface-variant-light: #E7E0EC;
+  --m3-on-surface-variant-light: #49454F;
+
+  --m3-outline-light: #79747E;
+  --m3-outline-variant-light: #CAC4D0;
+
+  /* Surface elevation tints (conceptual - actual tint is dynamic) */
+  /* For light theme, surface tint is primary color, opacity increases with elevation */
+  --m3-surface-tint-color-light: var(--m3-primary-light);
+  --m3-surface-1-light: #FAF4FF; /* Approx. surface + 5% primary overlay */
+  --m3-surface-2-light: #F6EEFF; /* Approx. surface + 8% primary overlay */
+  --m3-surface-3-light: #F2E7FF; /* Approx. surface + 11% primary overlay */
+  --m3-surface-4-light: #F0E6FF; /* Approx. surface + 12% primary overlay */
+  --m3-surface-5-light: #EDDFFF; /* Approx. surface + 14% primary overlay */
+
+  --m3-surface-bright-light: #FFFBFE; /* Typically same as base surface */
+  --m3-error-light: #B3261E;
+  --m3-on-error-light: #FFFFFF;
+  --m3-error-container-light: #F9DEDC;
+  --m3-on-error-container-light: #410E0B;
+
+  /* Dark Theme Colors */
+  --m3-primary-dark: #D0BCFF;
+  --m3-on-primary-dark: #381E72;
+  --m3-primary-container-dark: #4F378B;
+  --m3-on-primary-container-dark: #EADDFF;
+
+  --m3-secondary-dark: #CCC2DC;
+  --m3-on-secondary-dark: #332D41;
+  --m3-secondary-container-dark: #4A4458;
+  --m3-on-secondary-container-dark: #E8DEF8;
+
+  --m3-tertiary-dark: #EFB8C8;
+  --m3-on-tertiary-dark: #492532;
+  --m3-tertiary-container-dark: #633B48;
+  --m3-on-tertiary-container-dark: #FFD8E4;
+
+  --m3-neutral-dark: #CAC4CF; /* For text */
+  --m3-neutral-variant-dark: #938F99; /* For secondary text/icons */
+
+  --m3-background-dark: #1C1B1F;
+  --m3-on-background-dark: #E6E1E5;
+
+  --m3-surface-dark: #1C1B1F; /* Base surface, same as background */
+  --m3-on-surface-dark: #E6E1E5;
+  --m3-surface-variant-dark: #49454F;
+  --m3-on-surface-variant-dark: #CAC4D0;
+
+  --m3-outline-dark: #938F99;
+  --m3-outline-variant-dark: #49454F;
+
+  /* Surface elevation tints (conceptual - actual tint is dynamic) */
+  /* For dark theme, surface tint is primary color, opacity increases with elevation */
+  --m3-surface-tint-color-dark: var(--m3-primary-dark);
+  --m3-surface-1-dark: #2A2832; /* Approx. surface + 5% primary overlay */
+  --m3-surface-2-dark: #302E3C; /* Approx. surface + 8% primary overlay */
+  --m3-surface-3-dark: #383549; /* Approx. surface + 11% primary overlay */
+  --m3-surface-4-dark: #3B384E; /* Approx. surface + 12% primary overlay */
+  --m3-surface-5-dark: #413D56; /* Approx. surface + 14% primary overlay */
+
+  --m3-surface-dim-dark: #141218; /* Typically a darker shade of surface */
+  --m3-error-dark: #F2B8B5;
+  --m3-on-error-dark: #601410;
+  --m3-error-container-dark: #8C1D18;
+  --m3-on-error-container-dark: #F9DEDC;
+}

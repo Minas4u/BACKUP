@@ -1,471 +1,743 @@
+@import url('material-you-colors.css');
+
 :root {
-    --body-bg: #f0f4f8;
-    --text-color: #1e293b;
-    --main-container-bg: #ffffff;
-    --main-container-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    --nav-button-hover-bg: #f3f4f6;
-    --nav-button-hover-text: #1f2937;
-    --nav-button-active-overview-bg: #0284c7;
-    --nav-button-active-overview-text: white;
-    --nav-button-active-overview-hover-bg: #0369a1;
-    --nav-button-active-plan-bg: #f59e0b;
-    --nav-button-active-plan-text: white;
-    --nav-button-active-plan-hover-bg: #d97706;
-    --nav-button-active-calendar-bg: #059669;
-    --nav-button-active-calendar-text: white;
-    --nav-button-active-calendar-hover-bg: #047857;
-    --nav-button-active-race-bg: #7c3aed;
-    --nav-button-active-race-text: white;
-    --nav-button-active-race-hover-bg: #6d28d9;
-    --nav-button-active-info-bg: #6366f1;
-    --nav-button-active-info-text: white;
-    --nav-button-active-info-hover-bg: #4f46e5;
-    --nav-button-active-companion-bg: #10b981;
-    --nav-button-active-companion-text: white;
-    --nav-button-active-companion-hover-bg: #047857;
+    /* M3 Light Theme Base */
+    --body-bg: var(--m3-background-light);
+    --text-color: var(--m3-on-background-light);
+    --main-container-bg: var(--m3-surface-1-light); /* Elevated surface */
+    /* M3 Shadow (conceptual, real M3 uses layered shadows and tints) */
+    --main-container-shadow: 0px 1px 2px 0px rgba(0,0,0,0.3), 0px 1px 3px 1px rgba(0,0,0,0.15); /* M3 Elevation 1-ish */
 
-    --phase-button-preseason-border: #d1d5db;
-    --phase-button-preseason-text: #4b5563;
-    --phase-button-preseason-hover-bg: #f3f4f6;
-    --phase-button-preseason-active-bg: #6b7280;
-    --phase-button-preseason-active-text: white;
-    --phase-button-preseason-active-border: #6b7280;
+    /* General Interactive Elements */
+    --nav-button-hover-bg: var(--m3-surface-2-light); /* Slightly more elevated */
+    --nav-button-hover-text: var(--m3-on-surface-light);
 
-    --phase-button-base-border: #0ea5e9;
-    --phase-button-base-text: #0369a1;
-    --phase-button-base-hover-bg: #e0f2fe;
-    --phase-button-base-active-bg: #0ea5e9;
-    --phase-button-base-active-text: white;
+    /* Active Nav Buttons - Primary, Secondary, Tertiary mapping */
+    --nav-button-active-overview-bg: var(--m3-primary-light);
+    --nav-button-active-overview-text: var(--m3-on-primary-light);
+    --nav-button-active-overview-hover-bg: color-mix(in srgb, var(--m3-primary-light) 90%, black);
+    --nav-button-active-plan-bg: var(--m3-secondary-light);
+    --nav-button-active-plan-text: var(--m3-on-secondary-light);
+    --nav-button-active-plan-hover-bg: color-mix(in srgb, var(--m3-secondary-light) 90%, black);
+    --nav-button-active-calendar-bg: var(--m3-tertiary-light);
+    --nav-button-active-calendar-text: var(--m3-on-tertiary-light);
+    --nav-button-active-calendar-hover-bg: color-mix(in srgb, var(--m3-tertiary-light) 90%, black);
+    /* Assuming these follow a similar pattern, map to Primary/Secondary/Tertiary variants or containers */
+    --nav-button-active-race-bg: var(--m3-primary-container-light);
+    --nav-button-active-race-text: var(--m3-on-primary-container-light);
+    --nav-button-active-race-hover-bg: color-mix(in srgb, var(--m3-primary-container-light) 90%, black);
+    --nav-button-active-info-bg: var(--m3-secondary-container-light);
+    --nav-button-active-info-text: var(--m3-on-secondary-container-light);
+    --nav-button-active-info-hover-bg: color-mix(in srgb, var(--m3-secondary-container-light) 90%, black);
+    --nav-button-active-companion-bg: var(--m3-tertiary-container-light);
+    --nav-button-active-companion-text: var(--m3-on-tertiary-container-light);
+    --nav-button-active-companion-hover-bg: color-mix(in srgb, var(--m3-tertiary-container-light) 90%, black);
 
-    --phase-button-specific-border: #10b981;
-    --phase-button-specific-text: #047857;
-    --phase-button-specific-hover-bg: #d1fae5;
-    --phase-button-specific-active-bg: #059669;
-    --phase-button-specific-active-text: white;
-    --phase-button-specific-active-border: #059669;
+    /* Phase Buttons - Outlined button style or tonal button style */
+    --phase-button-preseason-border: var(--m3-outline-light);
+    --phase-button-preseason-text: var(--m3-on-surface-variant-light);
+    --phase-button-preseason-hover-bg: var(--m3-surface-variant-light); /* Or a very light primary/secondary tint */
+    --phase-button-preseason-active-bg: var(--m3-secondary-container-light);
+    --phase-button-preseason-active-text: var(--m3-on-secondary-container-light);
+    --phase-button-preseason-active-border: var(--m3-secondary-container-light);
 
-    --phase-button-taper-border: #ef4444;
-    --phase-button-taper-text: #b91c1c;
-    --phase-button-taper-hover-bg: #fee2e2;
-    --phase-button-taper-active-bg: #dc2626;
-    --phase-button-taper-active-text: white;
-    --phase-button-taper-active-border: #dc2626;
+    --phase-button-base-border: var(--m3-primary-light);
+    --phase-button-base-text: var(--m3-primary-light);
+    --phase-button-base-hover-bg: var(--m3-primary-container-light);
+    --phase-button-base-active-bg: var(--m3-primary-light);
+    --phase-button-base-active-text: var(--m3-on-primary-light);
 
-    --week-button-border: #9ca3af;
-    --week-button-active-bg: #0284c7;
-    --week-button-active-text: white;
-    --week-button-active-border: #0284c7;
+    --phase-button-specific-border: var(--m3-tertiary-light);
+    --phase-button-specific-text: var(--m3-tertiary-light);
+    --phase-button-specific-hover-bg: var(--m3-tertiary-container-light);
+    --phase-button-specific-active-bg: var(--m3-tertiary-light);
+    --phase-button-specific-active-text: var(--m3-on-tertiary-light);
+    --phase-button-specific-active-border: var(--m3-tertiary-light);
 
-    --week-button-preseason-text: #4b5563;
-    --week-button-preseason-hover-bg: #f3f4f6;
-    --week-button-preseason-hover-border: #9ca3af;
-    --week-button-base-text: #0369a1;
-    --week-button-base-hover-bg: #e0f2fe;
-    --week-button-base-hover-border: #7dd3fc;
-    --week-button-specific-text: #047857;
-    --week-button-specific-hover-bg: #d1fae5;
-    --week-button-specific-hover-border: #6ee7b7;
-    --week-button-taper-text: #b91c1c;
-    --week-button-taper-hover-bg: #fee2e2;
-    --week-button-taper-hover-border: #fca5a5;
+    --phase-button-taper-border: var(--m3-error-light); /* Using error for distinct 'warning' like taper */
+    --phase-button-taper-text: var(--m3-error-light);
+    --phase-button-taper-hover-bg: var(--m3-error-container-light);
+    --phase-button-taper-active-bg: var(--m3-error-light);
+    --phase-button-taper-active-text: var(--m3-on-error-light);
+    --phase-button-taper-active-border: var(--m3-error-light);
 
-    --content-card-bg: #fafaf9;
-    --overview-section-card-border-l: #0284c7;
-    --overview-section-card-border-b: #f59e0b;
-    --news-section-card-border-l: #4f46e5;
-    --news-section-card-border-b: #059669;
-    --race-section-card-border-l: #7c3aed;
-    --race-section-card-border-b: #db2777;
+    /* Week Buttons - Similar to phase buttons, using outlines or tonal */
+    --week-button-border: var(--m3-outline-light);
+    --week-button-active-bg: var(--m3-primary-light);
+    --week-button-active-text: var(--m3-on-primary-light);
+    --week-button-active-border: var(--m3-primary-light);
 
-    --table-border: #d1d5db;
-    --table-th-bg: #f3f4f6;
-    --schedule-table-border: #e5e7eb;
-    --schedule-table-th-bg: #f9fafb;
-    --schedule-table-th-text: #374151;
+    --week-button-preseason-text: var(--m3-on-surface-variant-light);
+    --week-button-preseason-hover-bg: var(--m3-surface-variant-light);
+    --week-button-preseason-hover-border: var(--m3-outline-variant-light);
+    --week-button-base-text: var(--m3-primary-light);
+    --week-button-base-hover-bg: var(--m3-primary-container-light);
+    --week-button-base-hover-border: var(--m3-primary-container-light);
+    --week-button-specific-text: var(--m3-tertiary-light);
+    --week-button-specific-hover-bg: var(--m3-tertiary-container-light);
+    --week-button-specific-hover-border: var(--m3-tertiary-container-light);
+    --week-button-taper-text: var(--m3-error-light);
+    --week-button-taper-hover-bg: var(--m3-error-container-light);
+    --week-button-taper-hover-border: var(--m3-error-container-light);
 
-    --input-userid-border: #f59e0b;
-    --input-userid-focus-border: #d97706;
-    --input-userid-focus-shadow: rgba(245, 158, 11, 0.3);
-    --label-userid-border-l: #0284c7;
-    --input-focus-border: #0ea5e9;
-    --input-focus-shadow: rgba(14, 165, 233, 0.3);
+    /* Content Cards */
+    --content-card-bg: var(--m3-surface-1-light); /* Slightly elevated from main background */
+    /* Card borders can use primary/secondary/tertiary or just outline */
+    --overview-section-card-border-l: var(--m3-primary-light);
+    --overview-section-card-border-b: var(--m3-secondary-light);
+    --news-section-card-border-l: var(--m3-tertiary-light);
+    --news-section-card-border-b: var(--m3-primary-container-light);
+    --race-section-card-border-l: var(--m3-secondary-container-light);
+    --race-section-card-border-b: var(--m3-tertiary-container-light);
 
-    --logo-d-text: #0284c7;
-    --logo-n-gradient-start: #0284c7;
-    --logo-n-gradient-end: #f59e0b;
-    --logo-a-text: #f59e0b;
-    --logo-border-top: #f59e0b;
-    --logo-border-right: #0284c7;
-    --logo-border-bottom: #0284c7;
-    --logo-border-left: #f59e0b;
+    /* Tables */
+    --table-border: var(--m3-outline-light);
+    --table-th-bg: var(--m3-surface-2-light); /* Slightly different from card bg */
+    --schedule-table-border: var(--m3-outline-variant-light);
+    --schedule-table-th-bg: var(--m3-surface-bright-light); /* Brighter for header */
+    --schedule-table-th-text: var(--m3-on-surface-light);
 
-    --scrollbar-track-bg: #f1f1f1;
-    --scrollbar-thumb-bg: #cbd5e1;
-    --scrollbar-thumb-hover-bg: #94a3b8;
+    /* Inputs and Labels */
+    --input-userid-border: var(--m3-primary-light);
+    --input-userid-focus-border: var(--m3-primary-light); /* Focus can be handled by box-shadow in M3 style */
+    --input-userid-focus-shadow: 0 0 0 2px var(--m3-primary-container-light); /* M3 like focus ring */
+    --label-userid-border-l: var(--m3-primary-light);
+    --input-focus-border: var(--m3-primary-light);
+    --input-focus-shadow: 0 0 0 2px var(--m3-primary-container-light); /* M3 like focus ring */
 
-    --loading-message-text: #0369a1;
-    --error-message-text: #dc2626;
-    --error-message-bg: #fee2e2;
-    --error-message-border: #f87171;
+    /* Logo - Keep brand colors or adapt to M3. For now, map to M3 accents */
+    --logo-d-text: var(--m3-primary-light);
+    --logo-n-gradient-start: var(--m3-primary-light);
+    --logo-n-gradient-end: var(--m3-secondary-light);
+    --logo-a-text: var(--m3-secondary-light);
+    --logo-border-top: var(--m3-secondary-light);
+    --logo-border-right: var(--m3-primary-light);
+    --logo-border-bottom: var(--m3-primary-light);
+    --logo-border-left: var(--m3-secondary-light);
 
-    --install-pwa-button-bg: #0284c7;
-    --install-pwa-button-text: white;
-    --install-pwa-button-border: #f59e0b;
-    --install-pwa-button-hover-bg: #0369a1;
-    --install-pwa-button-hover-border: #d97706;
+    /* Scrollbar */
+    --scrollbar-track-bg: var(--m3-surface-variant-light);
+    --scrollbar-thumb-bg: var(--m3-outline-light);
+    --scrollbar-thumb-hover-bg: var(--m3-on-surface-variant-light);
 
-    --calendar-grid-bg: #e5e7eb;
-    --calendar-grid-border: #e5e7eb;
-    --calendar-header-bg: #e0e7ff;
-    --calendar-header-text: #3730a3;
-    --calendar-header-border: #c7d2fe;
-    --calendar-day-bg: #fff;
-    --calendar-day-border: #f3f4f6;
-    --calendar-day-hover-bg: #f0f9ff;
-    --calendar-day-other-month-bg: #f9fafb;
-    --calendar-day-other-month-text: #9ca3af;
-    --calendar-day-today-bg: #ecfdf5;
-    --calendar-day-today-border: #10b981;
+    /* Messages */
+    --loading-message-text: var(--m3-primary-light);
+    --error-message-text: var(--m3-on-error-container-light);
+    --error-message-bg: var(--m3-error-container-light);
+    --error-message-border: var(--m3-error-light);
 
-    --activity-thumb-easy-bg: #e0f2fe; --activity-thumb-easy-text: #0c4a6e;
-    --activity-thumb-easy-green-bg: #dcfce7; --activity-thumb-easy-green-text: #15803d;
-    --activity-thumb-fartlek-bg: #fee2e2; --activity-thumb-fartlek-text: #b91c1c;
-    --activity-thumb-tempo-bg: #ffedd5; --activity-thumb-tempo-text: #c2410c;
-    --activity-thumb-interval-bg: #fecaca; --activity-thumb-interval-text: #991b1b;
-    --activity-thumb-long-bg: #f3e8ff; --activity-thumb-long-text: #7e22ce;
-    --activity-thumb-race-bg: #fce7f3; --activity-thumb-race-text: #be185d;
-    --activity-thumb-rest-bg: #f1f5f9; --activity-thumb-rest-text: #475569;
-    --activity-thumb-default-bg: #e0f2fe; --activity-thumb-default-text: #0c4a6e;
+    /* PWA Install Button - Filled button style */
+    --install-pwa-button-bg: var(--m3-primary-light);
+    --install-pwa-button-text: var(--m3-on-primary-light);
+    --install-pwa-button-border: var(--m3-primary-light); /* Or outline */
+    --install-pwa-button-hover-bg: color-mix(in srgb, var(--m3-primary-light) 90%, black);
+    --install-pwa-button-hover-border: color-mix(in srgb, var(--m3-primary-light) 90%, black);
 
-    --custom-rect-nav-border-t: #f59e0b;
-    --custom-rect-nav-border-r: #0284c7;
-    --custom-rect-nav-border-b: #0284c7;
-    --custom-rect-nav-border-l: #f59e0b;
+    /* Calendar */
+    --calendar-grid-bg: var(--m3-surface-variant-light);
+    --calendar-grid-border: var(--m3-outline-variant-light);
+    --calendar-header-bg: var(--m3-secondary-container-light);
+    --calendar-header-text: var(--m3-on-secondary-container-light);
+    --calendar-header-border: var(--m3-outline-variant-light);
+    --calendar-day-bg: var(--m3-surface-light);
+    --calendar-day-border: var(--m3-outline-variant-light);
+    --calendar-day-hover-bg: var(--m3-surface-2-light);
+    --calendar-day-other-month-bg: var(--m3-surface-bright-light); /* Slightly different from day bg */
+    --calendar-day-other-month-text: var(--m3-on-surface-variant-light);
+    --calendar-day-today-bg: var(--m3-primary-container-light);
+    --calendar-day-today-border: var(--m3-primary-light);
 
-    --custom-rect-today-border-t: #f59e0b;
-    --custom-rect-today-border-r: #0284c7;
-    --custom-rect-today-border-b: #0284c7;
-    --custom-rect-today-border-l: #f59e0b;
+    /* Activity Thumbnails - Use tonal containers */
+    --activity-thumb-easy-bg: var(--m3-primary-container-light); --activity-thumb-easy-text: var(--m3-on-primary-container-light);
+    --activity-thumb-easy-green-bg: var(--m3-tertiary-container-light); --activity-thumb-easy-green-text: var(--m3-on-tertiary-container-light); /* Example map */
+    --activity-thumb-fartlek-bg: var(--m3-error-container-light); --activity-thumb-fartlek-text: var(--m3-on-error-container-light);
+    --activity-thumb-tempo-bg: var(--m3-secondary-container-light); --activity-thumb-tempo-text: var(--m3-on-secondary-container-light);
+    --activity-thumb-interval-bg: color-mix(in srgb, var(--m3-error-light) 30%, var(--m3-surface-light)); --activity-thumb-interval-text: var(--m3-error-light);
+    --activity-thumb-long-bg: var(--m3-primary-container-light); --activity-thumb-long-text: var(--m3-on-primary-container-light); /* Different shade? */
+    --activity-thumb-race-bg: var(--m3-tertiary-container-light); --activity-thumb-race-text: var(--m3-on-tertiary-container-light);
+    --activity-thumb-rest-bg: var(--m3-surface-variant-light); --activity-thumb-rest-text: var(--m3-on-surface-variant-light);
+    --activity-thumb-default-bg: var(--m3-surface-2-light); --activity-thumb-default-text: var(--m3-on-surface-light);
 
-    --custom-rect-this-week-border-t: #15803d;
-    --custom-rect-this-week-border-l: #15803d;
-    --custom-rect-this-week-border-b: #dc2626;
-    --custom-rect-this-week-border-r: #dc2626;
+    /* Custom Rect Borders - map to primary/secondary */
+    --custom-rect-nav-border-t: var(--m3-secondary-light);
+    --custom-rect-nav-border-r: var(--m3-primary-light);
+    --custom-rect-nav-border-b: var(--m3-primary-light);
+    --custom-rect-nav-border-l: var(--m3-secondary-light);
 
-    --title-project-text: #f59e0b;
-    --title-marathon-text: #0284c7;
+    --custom-rect-today-border-t: var(--m3-secondary-light);
+    --custom-rect-today-border-r: var(--m3-primary-light);
+    --custom-rect-today-border-b: var(--m3-primary-light);
+    --custom-rect-today-border-l: var(--m3-secondary-light);
 
-    --loader-border: #f3f3f3;
-    --loader-border-top: #3b82f6;
-    --pdf-button-bg: #f43f5e;
-    --pdf-button-text: white;
-    --pdf-button-hover-bg: #e11d48;
-    --calendar-nav-button-bg: #0284c7;
-    --calendar-nav-button-text: white;
-    --calendar-nav-button-hover-bg: #0369a1;
+    --custom-rect-this-week-border-t: var(--m3-tertiary-light);
+    --custom-rect-this-week-border-l: var(--m3-tertiary-light);
+    --custom-rect-this-week-border-b: var(--m3-error-light);
+    --custom-rect-this-week-border-r: var(--m3-error-light);
 
-    --toggle-button-bg: #0284c7;
-    --toggle-button-text: white;
-    --toggle-button-border: #f59e0b;
-    --toggle-button-hover-bg: #0369a1;
-    --toggle-button-hover-border: #d97706;
+    /* Titles */
+    --title-project-text: var(--m3-secondary-light);
+    --title-marathon-text: var(--m3-primary-light);
 
-    --activity-text-easy: #16a34a;
-    --activity-text-recovery: #075985;
-    --activity-text-base: #1e40af;
-    --activity-text-tempo: #b45309;
-    --activity-text-interval: #991b1b;
-    --activity-text-fartlek: #831843;
-    --activity-text-str-hills: #713f12;
-    --activity-text-rest: #374151;
-    --activity-text-zone-race: #5b21b6;
-    --activity-text-double: #78350f;
-    --activity-text-mobility: #713f12;
+    /* Loader */
+    --loader-border: var(--m3-surface-variant-light); /* inactive part of spinner */
+    --loader-border-top: var(--m3-primary-light); /* active part */
+    /* PDF Button - Filled button style */
+    --pdf-button-bg: var(--m3-secondary-light);
+    --pdf-button-text: var(--m3-on-secondary-light);
+    --pdf-button-hover-bg: color-mix(in srgb, var(--m3-secondary-light) 90%, black);
+    /* Calendar Nav Button - Tonal or Filled */
+    --calendar-nav-button-bg: var(--m3-primary-container-light);
+    --calendar-nav-button-text: var(--m3-on-primary-container-light);
+    --calendar-nav-button-hover-bg: color-mix(in srgb, var(--m3-primary-container-light) 90%, var(--m3-on-primary-container-light));
 
-    --highlight-zone-pace-bg: #f59e0b;
-    --highlight-zone-pace-text: #1e293b;
+    /* Toggle Button - Outlined or Tonal */
+    --toggle-button-bg: var(--m3-secondary-container-light);
+    --toggle-button-text: var(--m3-on-secondary-container-light);
+    --toggle-button-border: var(--m3-secondary-light);
+    --toggle-button-hover-bg: color-mix(in srgb, var(--m3-secondary-container-light) 90%, var(--m3-on-secondary-container-light));
+    --toggle-button-hover-border: color-mix(in srgb, var(--m3-secondary-light) 90%, black);
 
-    --companion-nav-button-hover-bg: #f3f4f6;
-    --companion-nav-button-hover-text: #1f2937;
-    --companion-nav-button-active-drills-bg: #059669;
-    --companion-nav-button-active-drills-text: white;
-    --companion-nav-button-active-mobility-bg: #0ea5e9;
-    --companion-nav-button-active-mobility-text: white;
-    --companion-nav-button-active-strength-bg: #f59e0b;
-    --companion-nav-button-active-strength-text: white;
+    /* Activity Text (These are specific semantic colors, try to map to M3 roles or keep distinct if necessary) */
+    --activity-text-easy: var(--m3-primary-light);
+    --activity-text-recovery: var(--m3-secondary-light);
+    --activity-text-base: var(--m3-tertiary-light);
+    --activity-text-tempo: color-mix(in srgb, var(--m3-secondary-light) 70%, orange);
+    --activity-text-interval: var(--m3-error-light);
+    --activity-text-fartlek: color-mix(in srgb, var(--m3-error-light) 70%, purple);
+    --activity-text-str-hills: color-mix(in srgb, var(--m3-neutral-light) 70%, brown);
+    --activity-text-rest: var(--m3-on-surface-variant-light);
+    --activity-text-zone-race: var(--m3-primary-container-light); /* Or a strong accent */
+    --activity-text-double: color-mix(in srgb, var(--m3-secondary-light) 70%, brown);
+    --activity-text-mobility: color-mix(in srgb, var(--m3-neutral-light) 70%, teal);
 
-    --exercise-card-bg: #fff;
-    --exercise-card-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
-    --exercise-card-hover-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
-    --details-drills-bg: #dcfce7; --details-drills-text: #166534;
-    --details-mobility-bg: #e0f2fe; --details-mobility-text: #075985;
-    --details-strength-bg: #fef3c7; --details-strength-text: #92400e;
-    --video-link-text: #0ea5e9;
-    --video-link-hover-text: #0284c7;
-    --updates-card-border-l: #6366f1;
+    --highlight-zone-pace-bg: var(--m3-primary-container-light);
+    --highlight-zone-pace-text: var(--m3-on-primary-container-light);
 
-    --updates-modal-bg: #f8fafc;
-    --updates-modal-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    --updates-modal-header-gradient-start: #4f46e5;
-    --updates-modal-header-gradient-end: #7c3aed;
-    --updates-modal-close-text: #9ca3af;
-    --updates-modal-close-bg: #f3f4f6;
-    --updates-modal-close-hover-text: #1f2937;
-    --updates-modal-close-hover-bg: #e5e7eb;
-    --updates-modal-card-bg: #ffffff;
-    --updates-modal-card-border-l: #6366f1;
+    /* Companion App Nav Buttons */
+    --companion-nav-button-hover-bg: var(--m3-surface-2-light);
+    --companion-nav-button-hover-text: var(--m3-on-surface-light);
+    --companion-nav-button-active-drills-bg: var(--m3-tertiary-container-light);
+    --companion-nav-button-active-drills-text: var(--m3-on-tertiary-container-light);
+    --companion-nav-button-active-mobility-bg: var(--m3-primary-container-light);
+    --companion-nav-button-active-mobility-text: var(--m3-on-primary-container-light);
+    --companion-nav-button-active-strength-bg: var(--m3-secondary-container-light);
+    --companion-nav-button-active-strength-text: var(--m3-on-secondary-container-light);
 
-    --print-body-bg: white;
-    --print-text: black;
-    --print-table-border: #cccccc;
-    --print-table-th-bg: #f0f0f0;
-    --print-notes-border: #dddddd;
+    /* Exercise Card */
+    --exercise-card-bg: var(--m3-surface-2-light); /* Slightly more elevated */
+    --exercise-card-shadow: 0px 1px 2px 0px rgba(0,0,0,0.3), 0px 2px 6px 2px rgba(0,0,0,0.15); /* M3 Elevation 2-ish */
+    --exercise-card-hover-shadow: 0px 1px 2px 0px rgba(0,0,0,0.3), 0px 4px 8px 3px rgba(0,0,0,0.15); /* M3 Elevation 3-ish */
+    --details-drills-bg: var(--m3-tertiary-container-light); --details-drills-text: var(--m3-on-tertiary-container-light);
+    --details-mobility-bg: var(--m3-primary-container-light); --details-mobility-text: var(--m3-on-primary-container-light);
+    --details-strength-bg: var(--m3-secondary-container-light); --details-strength-text: var(--m3-on-secondary-container-light);
+    --video-link-text: var(--m3-primary-light);
+    --video-link-hover-text: color-mix(in srgb, var(--m3-primary-light) 70%, var(--m3-on-primary-container-light));
+    --updates-card-border-l: var(--m3-tertiary-light);
 
-    --today-pace-table-border: #000000;
-    --today-pace-table-th-bg: #f3f4f6;
-    --today-pace-table-th-text: #1f2937;
-    --today-pace-table-header-low: #2563eb;
-    --today-pace-table-header-average: #16a34a;
-    --today-pace-table-header-high: #dc2626;
+    /* Updates Modal */
+    --updates-modal-bg: var(--m3-surface-2-light); /* Elevated surface for modal */
+    --updates-modal-shadow: 0px 8px 10px 1px rgba(0,0,0,0.14), 0px 3px 14px 3px rgba(0,0,0,0.12), 0px 5px 5px -3px rgba(0,0,0,0.2); /* M3 Elevation 6 (Dialog) */
+    --updates-modal-header-gradient-start: var(--m3-primary-light);
+    --updates-modal-header-gradient-end: var(--m3-tertiary-light);
+    --updates-modal-close-text: var(--m3-on-surface-variant-light);
+    --updates-modal-close-bg: var(--m3-surface-3-light);
+    --updates-modal-close-hover-text: var(--m3-on-primary-container-light);
+    --updates-modal-close-hover-bg: var(--m3-primary-container-light);
+    --updates-modal-card-bg: var(--m3-surface-1-light);
+    --updates-modal-card-border-l: var(--m3-primary-light);
 
-    --todays-activity-box-border: #e5e7eb;
-    --todays-activity-box-bg: #ffffff;
-    --todays-activity-text-default: #0369a1;
-    --todays-weekly-notes-box-border: #e5e7eb;
-    --todays-weekly-notes-box-bg: #f9fafb;
+    /* Print - these are usually black/white, should be fine but map to ensure consistency */
+    --print-body-bg: #FFFFFF;
+    --print-text: #000000;
+    --print-table-border: #CCCCCC;
+    --print-table-th-bg: #F0F0F0;
+    --print-notes-border: #DDDDDD;
 
-    --mobile-calendar-day-fartlek-bg: #ffd9d9; --mobile-calendar-day-fartlek-text: #990000;
-    --mobile-calendar-day-easy-green-bg: #d9ffd9; --mobile-calendar-day-easy-green-text: #006400;
-    --mobile-calendar-day-interval-bg: #fee2e2; --mobile-calendar-day-interval-text: #b91c1c;
-    --mobile-calendar-day-easy-bg: #e0f2fe; --mobile-calendar-day-easy-text: #0c4a6e;
-    --mobile-calendar-day-tempo-bg: #ffedd5; --mobile-calendar-day-tempo-text: #c2410c;
-    --mobile-calendar-day-long-bg: #f3e8ff; --mobile-calendar-day-long-text: #7e22ce;
-    --mobile-calendar-day-race-bg: #fce7f3; --mobile-calendar-day-race-text: #be185d;
-    --mobile-calendar-day-rest-bg: #f1f5f9; --mobile-calendar-day-rest-text: #475569;
-    --mobile-calendar-day-default-bg: #e0f2fe; --mobile-calendar-day-default-text: #0c4a6e;
-    --mobile-calendar-day-today-number-text: #065f46;
+    /* Today Pace Table */
+    --today-pace-table-border: var(--m3-outline-variant-light);
+    --today-pace-table-th-bg: var(--m3-surface-2-light);
+    --today-pace-table-th-text: var(--m3-on-surface-light);
+    --today-pace-table-header-low: var(--m3-primary-light);
+    --today-pace-table-header-average: var(--m3-tertiary-light);
+    --today-pace-table-header-high: var(--m3-error-light);
 
-    /* Dark Mode Variables */
-    --dm-body-bg: #111827; /* gray-900 */
-    --dm-text-color: #f3f4f6; /* gray-100 */
-    --dm-main-container-bg: #1f2937; /* gray-800 */
-    --dm-main-container-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
-    --dm-nav-button-hover-bg: #374151; /* gray-700 */
-    --dm-nav-button-hover-text: #f3f4f6; /* gray-100 */
-    --dm-content-card-bg: #374151; /* gray-700 */
-    --dm-table-border: #4b5563; /* gray-600 */
-    --dm-table-th-bg: #1f2937; /* gray-800 */
-    --dm-schedule-table-border: #4b5563; /* gray-600 */
-    --dm-schedule-table-th-bg: #1f2937; /* gray-800 */
-    --dm-schedule-table-th-text: #e5e7eb; /* gray-200 for slightly better brightness */
-    --dm-input-userid-border: #f59e0b;
-    --dm-input-userid-focus-border: #d97706;
-    --dm-input-userid-focus-shadow: rgba(245, 158, 11, 0.4);
-    --dm-input-focus-border: #0ea5e9;
-    --dm-input-focus-shadow: rgba(14, 165, 233, 0.4);
-    --dm-scrollbar-track-bg: #1f2937; /* gray-800 */
-    --dm-scrollbar-thumb-bg: #4b5563; /* gray-600 */
-    --dm-scrollbar-thumb-hover-bg: #6b7280; /* gray-500 */
-    --dm-loading-message-text: #60a5fa; /* blue-400 */
-    --dm-error-message-text: #f87171; /* red-400 */
-    --dm-error-message-bg: #450a0a; /* red-900 bg, adjust opacity if needed */
-    --dm-error-message-border: #ef4444; /* red-500 */
-    --dm-calendar-grid-bg: #374151; /* gray-700 */
-    --dm-calendar-grid-border: #4b5563; /* gray-600 */
-    --dm-calendar-header-bg: #312e81; /* indigo-900 */
-    --dm-calendar-header-text: #e0e7ff; /* indigo-100 */
-    --dm-calendar-header-border: #4338ca; /* indigo-700 */
-    --dm-calendar-day-bg: #1f2937; /* gray-800 */
-    --dm-calendar-day-border: #374151; /* gray-700 */
-    --dm-calendar-day-hover-bg: #111827; /* gray-900 */
-    --dm-calendar-day-other-month-bg: #111827; /* gray-900 */
-    --dm-calendar-day-other-month-text: #6b7280; /* gray-500 */
-    --dm-calendar-day-today-bg: #064e3b; /* green-800 */
-    --dm-calendar-day-today-border: #10b981; /* green-500 */
-    --dm-activity-thumb-easy-bg: #0c4a6e; --dm-activity-thumb-easy-text: #e0f2fe;
-    --dm-activity-thumb-easy-green-bg: #15803d; --dm-activity-thumb-easy-green-text: #dcfce7;
-    --dm-activity-thumb-fartlek-bg: #b91c1c; --dm-activity-thumb-fartlek-text: #fee2e2;
-    --dm-activity-thumb-tempo-bg: #c2410c; --dm-activity-thumb-tempo-text: #ffedd5;
-    --dm-activity-thumb-interval-bg: #991b1b; --dm-activity-thumb-interval-text: #fecaca;
-    --dm-activity-thumb-long-bg: #7e22ce; --dm-activity-thumb-long-text: #f3e8ff;
-    --dm-activity-thumb-race-bg: #be185d; --dm-activity-thumb-race-text: #fce7f3;
-    --dm-activity-thumb-rest-bg: #475569; --dm-activity-thumb-rest-text: #f1f5f9;
-    --dm-activity-thumb-default-bg: #0c4a6e; --dm-activity-thumb-default-text: #e0f2fe;
-    --dm-title-project-text: #fbbf24; /* amber-400 */
-    --dm-title-marathon-text: #38bdf8; /* sky-400 */
-    --dm-loader-border: #374151; /* gray-700 */
-    --dm-highlight-zone-pace-bg: #f59e0b;
-    --dm-highlight-zone-pace-text: #111827;
-    --dm-exercise-card-bg: #374151; /* gray-700 */
-    --dm-exercise-card-shadow: 0 4px 6px -1px rgba(0,0,0,0.3), 0 2px 4px -2px rgba(0,0,0,0.2);
-    --dm-exercise-card-hover-shadow: 0 10px 15px -3px rgba(0,0,0,0.3), 0 4px 6px -4px rgba(0,0,0,0.2);
-    --dm-details-drills-bg: #052e16; --dm-details-drills-text: #dcfce7; /* green-900 / green-100 */
-    --dm-details-mobility-bg: #0c546e; --dm-details-mobility-text: #e0f2fe; /* custom darker blue / light blue */
-    --dm-details-strength-bg: #78350f; --dm-details-strength-text: #fef3c7; /* amber-900 / amber-100 */
-    --dm-video-link-text: #38bdf8; /* sky-400 */
-    --dm-video-link-hover-text: #7dd3fc; /* sky-300 */
-    --dm-updates-modal-bg: #1f2937; /* gray-800 */
-    --dm-updates-modal-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    --dm-updates-modal-header-gradient-start: #818cf8; /* indigo-300 */
-    --dm-updates-modal-header-gradient-end: #c084fc; /* purple-300 */
-    --dm-updates-modal-close-text: #9ca3af; /* gray-400 */
-    --dm-updates-modal-close-bg: #374151; /* gray-700 */
-    --dm-updates-modal-close-hover-text: #f3f4f6; /* gray-100 */
-    --dm-updates-modal-close-hover-bg: #4b5563; /* gray-600 */
-    --dm-updates-modal-card-bg: #374151; /* gray-700 */
-    --dm-today-pace-table-border: #6b7280; /* gray-500 */
-    --dm-today-pace-table-th-bg: #1f2937; /* gray-800 */
-    --dm-today-pace-table-th-text: #e5e7eb; /* gray-200 for slightly better brightness */
-    --dm-today-pace-table-header-low: #60a5fa; /* blue-400 */
-    --dm-today-pace-table-header-average: #4ade80; /* green-400 */
-    --dm-today-pace-table-header-high: #f87171; /* red-400 */
-    --dm-todays-activity-box-border: #4b5563; /* gray-600 */
-    --dm-todays-activity-box-bg: #1f2937; /* gray-800 */
-    --dm-todays-activity-text-default: #60a5fa; /* blue-400 */
-    --dm-todays-weekly-notes-box-border: #4b5563; /* gray-600 */
-    --dm-todays-weekly-notes-box-bg: #111827; /* gray-900 */
-    --dm-mobile-calendar-day-fartlek-bg: #7f1d1d; --dm-mobile-calendar-day-fartlek-text: #fee2e2;
-    --dm-mobile-calendar-day-easy-green-bg: #064e3b; --dm-mobile-calendar-day-easy-green-text: #dcfce7;
-    --dm-mobile-calendar-day-interval-bg: #7f1d1d; --dm-mobile-calendar-day-interval-text: #fecaca;
-    --dm-mobile-calendar-day-easy-bg: #0c4a6e; --dm-mobile-calendar-day-easy-text: #e0f2fe;
-    --dm-mobile-calendar-day-tempo-bg: #7c2d12; --dm-mobile-calendar-day-tempo-text: #ffedd5;
-    --dm-mobile-calendar-day-long-bg: #581c87; --dm-mobile-calendar-day-long-text: #f3e8ff;
-    --dm-mobile-calendar-day-race-bg: #86198f; --dm-mobile-calendar-day-race-text: #fce7f3;
-    --dm-mobile-calendar-day-rest-bg: #374151; --dm-mobile-calendar-day-rest-text: #f1f5f9;
-    --dm-mobile-calendar-day-default-bg: #0c4a6e; --dm-mobile-calendar-day-default-text: #e0f2fe;
-    --dm-mobile-calendar-day-today-number-text: #a7f3d0; /* green-200 */
+    /* Today's Activity Box */
+    --todays-activity-box-border: var(--m3-outline-variant-light);
+    --todays-activity-box-bg: var(--m3-surface-1-light);
+    --todays-activity-text-default: var(--m3-primary-light); /* Default, overridden by specific classes */
+    --todays-weekly-notes-box-border: var(--m3-outline-variant-light);
+    --todays-weekly-notes-box-bg: var(--m3-surface-bright-light);
+
+    /* Mobile Calendar Day Backgrounds (semantic, map to M3 containers) */
+    --mobile-calendar-day-fartlek-bg: var(--m3-error-container-light); --mobile-calendar-day-fartlek-text: var(--m3-on-error-container-light);
+    --mobile-calendar-day-easy-green-bg: var(--m3-tertiary-container-light); --mobile-calendar-day-easy-green-text: var(--m3-on-tertiary-container-light);
+    --mobile-calendar-day-interval-bg: color-mix(in srgb, var(--m3-error-light) 30%, var(--m3-surface-light)); --mobile-calendar-day-interval-text: var(--m3-error-light);
+    --mobile-calendar-day-easy-bg: var(--m3-primary-container-light); --mobile-calendar-day-easy-text: var(--m3-on-primary-container-light);
+    --mobile-calendar-day-tempo-bg: var(--m3-secondary-container-light); --mobile-calendar-day-tempo-text: var(--m3-on-secondary-container-light);
+    --mobile-calendar-day-long-bg: var(--m3-primary-container-light); --mobile-calendar-day-long-text: var(--m3-on-primary-container-light); /* Could be a variant */
+    --mobile-calendar-day-race-bg: var(--m3-tertiary-container-light); --mobile-calendar-day-race-text: var(--m3-on-tertiary-container-light); /* Could be a variant */
+    --mobile-calendar-day-rest-bg: var(--m3-surface-variant-light); --mobile-calendar-day-rest-text: var(--m3-on-surface-variant-light);
+    --mobile-calendar-day-default-bg: var(--m3-surface-2-light); --mobile-calendar-day-default-text: var(--m3-on-surface-light);
+    --mobile-calendar-day-today-number-text: var(--m3-on-primary-container-light); /* Text on today's bg */
+
+    /* Dark Mode Variables - These will be replaced by M3 dark variables below */
+    /* --dm-body-bg: #111827; */ /* gray-900 */
+    /* --dm-text-color: #f3f4f6; */ /* gray-100 */
+    /* --dm-main-container-bg: #1f2937; */ /* gray-800 */
+    /* All --dm-* variables are now removed or commented out.
+       The body.dark-mode rule will now map directly to M3 dark variables. */
 }
 
 body {
     font-family: 'Ubuntu', sans-serif;
     background-color: var(--body-bg);
     color: var(--text-color);
+    font-size: 1rem; /* 16px - M3 Body Large */
+    font-weight: 400; /* M3 Body Large */
+    line-height: 1.5; /* M3 Body Large line height (24px for 16px size) */
+    letter-spacing: 0.03125em; /* M3 Body Large letter spacing (0.5px for 16px size) */
 }
 body.dark-mode {
-    --body-bg: var(--dm-body-bg);
-    --text-color: var(--dm-text-color);
-    --main-container-bg: var(--dm-main-container-bg);
-    --main-container-shadow: var(--dm-main-container-shadow);
-    --nav-button-hover-bg: var(--dm-nav-button-hover-bg);
-    --nav-button-hover-text: var(--dm-nav-button-hover-text);
-    /* Keep active button colors same for dark mode, or define specific dark versions if needed */
-    --content-card-bg: var(--dm-content-card-bg);
-    --table-border: var(--dm-table-border);
-    --table-th-bg: var(--dm-table-th-bg);
-    --schedule-table-border: var(--dm-schedule-table-border);
-    --schedule-table-th-bg: var(--dm-schedule-table-th-bg);
-    --schedule-table-th-text: var(--dm-schedule-table-th-text);
-    --input-userid-border: var(--dm-input-userid-border);
-    --input-userid-focus-border: var(--dm-input-userid-focus-border);
-    --input-userid-focus-shadow: var(--dm-input-userid-focus-shadow);
-    --input-focus-border: var(--dm-input-focus-border);
-    --input-focus-shadow: var(--dm-input-focus-shadow);
-    /* Logo colors could be inverted or kept as brand colors */
-    --scrollbar-track-bg: var(--dm-scrollbar-track-bg);
-    --scrollbar-thumb-bg: var(--dm-scrollbar-thumb-bg);
-    --scrollbar-thumb-hover-bg: var(--dm-scrollbar-thumb-hover-bg);
-    --loading-message-text: var(--dm-loading-message-text);
-    --error-message-text: var(--dm-error-message-text);
-    --error-message-bg: var(--dm-error-message-bg);
-    --error-message-border: var(--dm-error-message-border);
-    --calendar-grid-bg: var(--dm-calendar-grid-bg);
-    --calendar-grid-border: var(--dm-calendar-grid-border);
-    --calendar-header-bg: var(--dm-calendar-header-bg);
-    --calendar-header-text: var(--dm-calendar-header-text);
-    --calendar-header-border: var(--dm-calendar-header-border);
-    --calendar-day-bg: var(--dm-calendar-day-bg);
-    --calendar-day-border: var(--dm-calendar-day-border);
-    --calendar-day-hover-bg: var(--dm-calendar-day-hover-bg);
-    --calendar-day-other-month-bg: var(--dm-calendar-day-other-month-bg);
-    --calendar-day-other-month-text: var(--dm-calendar-day-other-month-text);
-    --calendar-day-today-bg: var(--dm-calendar-day-today-bg);
-    --calendar-day-today-border: var(--dm-calendar-day-today-border);
-    --activity-thumb-easy-bg: var(--dm-activity-thumb-easy-bg); --activity-thumb-easy-text: var(--dm-activity-thumb-easy-text);
-    --activity-thumb-easy-green-bg: var(--dm-activity-thumb-easy-green-bg); --activity-thumb-easy-green-text: var(--dm-activity-thumb-easy-green-text);
-    --activity-thumb-fartlek-bg: var(--dm-activity-thumb-fartlek-bg); --activity-thumb-fartlek-text: var(--dm-activity-thumb-fartlek-text);
-    --activity-thumb-tempo-bg: var(--dm-activity-thumb-tempo-bg); --activity-thumb-tempo-text: var(--dm-activity-thumb-tempo-text);
-    --activity-thumb-interval-bg: var(--dm-activity-thumb-interval-bg); --activity-thumb-interval-text: var(--dm-activity-thumb-interval-text);
-    --activity-thumb-long-bg: var(--dm-activity-thumb-long-bg); --activity-thumb-long-text: var(--dm-activity-thumb-long-text);
-    --activity-thumb-race-bg: var(--dm-activity-thumb-race-bg); --activity-thumb-race-text: var(--dm-activity-thumb-race-text);
-    --activity-thumb-rest-bg: var(--dm-activity-thumb-rest-bg); --activity-thumb-rest-text: var(--dm-activity-thumb-rest-text);
-    --activity-thumb-default-bg: var(--dm-activity-thumb-default-bg); --activity-thumb-default-text: var(--dm-activity-thumb-default-text);
-    --title-project-text: var(--dm-title-project-text);
-    --title-marathon-text: var(--dm-title-marathon-text);
-    --loader-border: var(--dm-loader-border);
-    --highlight-zone-pace-bg: var(--dm-highlight-zone-pace-bg);
-    --highlight-zone-pace-text: var(--dm-highlight-zone-pace-text);
-    --exercise-card-bg: var(--dm-exercise-card-bg);
-    --exercise-card-shadow: var(--dm-exercise-card-shadow);
-    --exercise-card-hover-shadow: var(--dm-exercise-card-hover-shadow);
-    --details-drills-bg: var(--dm-details-drills-bg); --details-drills-text: var(--dm-details-drills-text);
-    --details-mobility-bg: var(--dm-details-mobility-bg); --details-mobility-text: var(--dm-details-mobility-text);
-    --details-strength-bg: var(--dm-details-strength-bg); --details-strength-text: var(--dm-details-strength-text);
-    --video-link-text: var(--dm-video-link-text);
-    --video-link-hover-text: var(--dm-video-link-hover-text);
-    --updates-modal-bg: var(--dm-updates-modal-bg);
-    --updates-modal-shadow: var(--dm-updates-modal-shadow);
-    --updates-modal-header-gradient-start: var(--dm-updates-modal-header-gradient-start);
-    --updates-modal-header-gradient-end: var(--dm-updates-modal-header-gradient-end);
-    --updates-modal-close-text: var(--dm-updates-modal-close-text);
-    --updates-modal-close-bg: var(--dm-updates-modal-close-bg);
-    --updates-modal-close-hover-text: var(--dm-updates-modal-close-hover-text);
-    --updates-modal-close-hover-bg: var(--dm-updates-modal-close-hover-bg);
-    --updates-modal-card-bg: var(--dm-updates-modal-card-bg);
-    --today-pace-table-border: var(--dm-today-pace-table-border);
-    --today-pace-table-th-bg: var(--dm-today-pace-table-th-bg);
-    --today-pace-table-th-text: var(--dm-today-pace-table-th-text);
-    --today-pace-table-header-low: var(--dm-today-pace-table-header-low);
-    --today-pace-table-header-average: var(--dm-today-pace-table-header-average);
-    --today-pace-table-header-high: var(--dm-today-pace-table-header-high);
-    --todays-activity-box-border: var(--dm-todays-activity-box-border);
-    --todays-activity-box-bg: var(--dm-todays-activity-box-bg);
-    --todays-activity-text-default: var(--dm-todays-activity-text-default);
-    --todays-weekly-notes-box-border: var(--dm-todays-weekly-notes-box-border);
-    --todays-weekly-notes-box-bg: var(--dm-todays-weekly-notes-box-bg);
-    --mobile-calendar-day-fartlek-bg: var(--dm-mobile-calendar-day-fartlek-bg); --mobile-calendar-day-fartlek-text: var(--dm-mobile-calendar-day-fartlek-text);
-    --mobile-calendar-day-easy-green-bg: var(--dm-mobile-calendar-day-easy-green-bg); --mobile-calendar-day-easy-green-text: var(--dm-mobile-calendar-day-easy-green-text);
-    --mobile-calendar-day-interval-bg: var(--dm-mobile-calendar-day-interval-bg); --mobile-calendar-day-interval-text: var(--dm-mobile-calendar-day-interval-text);
-    --mobile-calendar-day-easy-bg: var(--dm-mobile-calendar-day-easy-bg); --mobile-calendar-day-easy-text: var(--dm-mobile-calendar-day-easy-text);
-    --mobile-calendar-day-tempo-bg: var(--dm-mobile-calendar-day-tempo-bg); --mobile-calendar-day-tempo-text: var(--dm-mobile-calendar-day-tempo-text);
-    --mobile-calendar-day-long-bg: var(--dm-mobile-calendar-day-long-bg); --mobile-calendar-day-long-text: var(--dm-mobile-calendar-day-long-text);
-    --mobile-calendar-day-race-bg: var(--dm-mobile-calendar-day-race-bg); --mobile-calendar-day-race-text: var(--dm-mobile-calendar-day-race-text);
-    --mobile-calendar-day-rest-bg: var(--dm-mobile-calendar-day-rest-bg); --mobile-calendar-day-rest-text: var(--dm-mobile-calendar-day-rest-text);
-    --mobile-calendar-day-default-bg: var(--dm-mobile-calendar-day-default-bg); --mobile-calendar-day-default-text: var(--dm-mobile-calendar-day-default-text);
-    --mobile-calendar-day-today-number-text: var(--dm-mobile-calendar-day-today-number-text);
+    /* M3 Dark Theme Base */
+    --body-bg: var(--m3-background-dark);
+    --text-color: var(--m3-on-background-dark);
+    --main-container-bg: var(--m3-surface-1-dark); /* Elevated surface */
+    /* M3 Shadow (conceptual) */
+    --main-container-shadow: 0px 1px 2px 0px rgba(0,0,0,0.3), 0px 1px 3px 1px rgba(0,0,0,0.15); /* M3 Elevation 1-ish */
 
-    /* Specific overrides for dark mode if color variables are not enough */
-    /* Example: Invert logo colors or change border styles for specific components */
-    --logo-d-text: var(--dm-title-marathon-text);
-    --logo-n-gradient-start: var(--dm-title-marathon-text);
-    --logo-n-gradient-end: var(--dm-title-project-text);
-    --logo-a-text: var(--dm-title-project-text);
-    --logo-border-top: var(--dm-title-project-text);
-    --logo-border-right: var(--dm-title-marathon-text);
-    --logo-border-bottom: var(--dm-title-marathon-text);
-    --logo-border-left: var(--dm-title-project-text);
+    /* General Interactive Elements */
+    --nav-button-hover-bg: var(--m3-surface-2-dark);
+    --nav-button-hover-text: var(--m3-on-surface-dark);
 
-    --overview-section-card-border-l: var(--dm-title-marathon-text);
-    --overview-section-card-border-b: var(--dm-title-project-text);
-    --news-section-card-border-l: var(--dm-updates-modal-header-gradient-start);
-    --news-section-card-border-b: var(--nav-button-active-calendar-bg); /* Using existing var as example */
-    --race-section-card-border-l: var(--nav-button-active-race-bg);
-    --race-section-card-border-b: #db2777; /* Keep pink for now, or create a dark var */
+    /* Active Nav Buttons - M3 Dark Mapping */
+    --nav-button-active-overview-bg: var(--m3-primary-dark);
+    --nav-button-active-overview-text: var(--m3-on-primary-dark);
+    --nav-button-active-overview-hover-bg: color-mix(in srgb, var(--m3-primary-dark) 90%, black);
+    --nav-button-active-plan-bg: var(--m3-secondary-dark);
+    --nav-button-active-plan-text: var(--m3-on-secondary-dark);
+    --nav-button-active-plan-hover-bg: color-mix(in srgb, var(--m3-secondary-dark) 90%, black);
+    --nav-button-active-calendar-bg: var(--m3-tertiary-dark);
+    --nav-button-active-calendar-text: var(--m3-on-tertiary-dark);
+    --nav-button-active-calendar-hover-bg: color-mix(in srgb, var(--m3-tertiary-dark) 90%, black);
+    --nav-button-active-race-bg: var(--m3-primary-container-dark);
+    --nav-button-active-race-text: var(--m3-on-primary-container-dark);
+    --nav-button-active-race-hover-bg: color-mix(in srgb, var(--m3-primary-container-dark) 90%, white);
+    --nav-button-active-info-bg: var(--m3-secondary-container-dark);
+    --nav-button-active-info-text: var(--m3-on-secondary-container-dark);
+    --nav-button-active-info-hover-bg: color-mix(in srgb, var(--m3-secondary-container-dark) 90%, white);
+    --nav-button-active-companion-bg: var(--m3-tertiary-container-dark);
+    --nav-button-active-companion-text: var(--m3-on-tertiary-container-dark);
+    --nav-button-active-companion-hover-bg: color-mix(in srgb, var(--m3-tertiary-container-dark) 90%, white);
+
+    /* Phase Buttons - M3 Dark Mapping */
+    --phase-button-preseason-border: var(--m3-outline-dark);
+    --phase-button-preseason-text: var(--m3-on-surface-variant-dark);
+    --phase-button-preseason-hover-bg: var(--m3-surface-variant-dark);
+    --phase-button-preseason-active-bg: var(--m3-secondary-container-dark);
+    --phase-button-preseason-active-text: var(--m3-on-secondary-container-dark);
+    --phase-button-preseason-active-border: var(--m3-secondary-container-dark);
+
+    --phase-button-base-border: var(--m3-primary-dark);
+    --phase-button-base-text: var(--m3-primary-dark);
+    --phase-button-base-hover-bg: var(--m3-primary-container-dark);
+    --phase-button-base-active-bg: var(--m3-primary-dark);
+    --phase-button-base-active-text: var(--m3-on-primary-dark);
+
+    --phase-button-specific-border: var(--m3-tertiary-dark);
+    --phase-button-specific-text: var(--m3-tertiary-dark);
+    --phase-button-specific-hover-bg: var(--m3-tertiary-container-dark);
+    --phase-button-specific-active-bg: var(--m3-tertiary-dark);
+    --phase-button-specific-active-text: var(--m3-on-tertiary-dark);
+    --phase-button-specific-active-border: var(--m3-tertiary-dark);
+
+    --phase-button-taper-border: var(--m3-error-dark);
+    --phase-button-taper-text: var(--m3-error-dark);
+    --phase-button-taper-hover-bg: var(--m3-error-container-dark);
+    --phase-button-taper-active-bg: var(--m3-error-dark);
+    --phase-button-taper-active-text: var(--m3-on-error-dark);
+    --phase-button-taper-active-border: var(--m3-error-dark);
+
+    /* Week Buttons - M3 Dark */
+    --week-button-border: var(--m3-outline-dark);
+    --week-button-active-bg: var(--m3-primary-dark);
+    --week-button-active-text: var(--m3-on-primary-dark);
+    --week-button-active-border: var(--m3-primary-dark);
+
+    --week-button-preseason-text: var(--m3-on-surface-variant-dark);
+    --week-button-preseason-hover-bg: var(--m3-surface-variant-dark);
+    --week-button-preseason-hover-border: var(--m3-outline-variant-dark);
+    --week-button-base-text: var(--m3-primary-dark);
+    --week-button-base-hover-bg: var(--m3-primary-container-dark);
+    --week-button-base-hover-border: var(--m3-primary-container-dark);
+    --week-button-specific-text: var(--m3-tertiary-dark);
+    --week-button-specific-hover-bg: var(--m3-tertiary-container-dark);
+    --week-button-specific-hover-border: var(--m3-tertiary-container-dark);
+    --week-button-taper-text: var(--m3-error-dark);
+    --week-button-taper-hover-bg: var(--m3-error-container-dark);
+    --week-button-taper-hover-border: var(--m3-error-container-dark);
+
+    /* Content Cards - M3 Dark */
+    --content-card-bg: var(--m3-surface-1-dark);
+    --overview-section-card-border-l: var(--m3-primary-dark);
+    --overview-section-card-border-b: var(--m3-secondary-dark);
+    --news-section-card-border-l: var(--m3-tertiary-dark);
+    --news-section-card-border-b: var(--m3-primary-container-dark);
+    --race-section-card-border-l: var(--m3-secondary-container-dark);
+    --race-section-card-border-b: var(--m3-tertiary-container-dark); /* Or specific like #EFB8C8 for pink */
+
+    /* Tables - M3 Dark */
+    --table-border: var(--m3-outline-dark);
+    --table-th-bg: var(--m3-surface-2-dark);
+    --schedule-table-border: var(--m3-outline-variant-dark);
+    --schedule-table-th-bg: var(--m3-surface-dim-dark); /* Dimmer for header */
+    --schedule-table-th-text: var(--m3-on-surface-dark);
+
+    /* Inputs and Labels - M3 Dark */
+    --input-userid-border: var(--m3-primary-dark);
+    --input-userid-focus-border: var(--m3-primary-dark);
+    --input-userid-focus-shadow: 0 0 0 2px var(--m3-primary-container-dark);
+    --label-userid-border-l: var(--m3-primary-dark);
+    --input-focus-border: var(--m3-primary-dark);
+    --input-focus-shadow: 0 0 0 2px var(--m3-primary-container-dark);
+
+    /* Logo - M3 Dark Accents */
+    --logo-d-text: var(--m3-primary-dark);
+    --logo-n-gradient-start: var(--m3-primary-dark);
+    --logo-n-gradient-end: var(--m3-secondary-dark);
+    --logo-a-text: var(--m3-secondary-dark);
+    --logo-border-top: var(--m3-secondary-dark);
+    --logo-border-right: var(--m3-primary-dark);
+    --logo-border-bottom: var(--m3-primary-dark);
+    --logo-border-left: var(--m3-secondary-dark);
+
+    /* Scrollbar - M3 Dark */
+    --scrollbar-track-bg: var(--m3-surface-variant-dark);
+    --scrollbar-thumb-bg: var(--m3-outline-dark);
+    --scrollbar-thumb-hover-bg: var(--m3-on-surface-variant-dark);
+
+    /* Messages - M3 Dark */
+    --loading-message-text: var(--m3-primary-dark);
+    --error-message-text: var(--m3-on-error-container-dark);
+    --error-message-bg: var(--m3-error-container-dark);
+    --error-message-border: var(--m3-error-dark);
+
+    /* PWA Install Button - M3 Dark */
+    --install-pwa-button-bg: var(--m3-primary-dark);
+    --install-pwa-button-text: var(--m3-on-primary-dark);
+    --install-pwa-button-border: var(--m3-primary-dark);
+    --install-pwa-button-hover-bg: color-mix(in srgb, var(--m3-primary-dark) 90%, black);
+    --install-pwa-button-hover-border: color-mix(in srgb, var(--m3-primary-dark) 90%, black);
+
+    /* Calendar - M3 Dark */
+    --calendar-grid-bg: var(--m3-surface-variant-dark);
+    --calendar-grid-border: var(--m3-outline-variant-dark);
+    --calendar-header-bg: var(--m3-secondary-container-dark);
+    --calendar-header-text: var(--m3-on-secondary-container-dark);
+    --calendar-header-border: var(--m3-outline-variant-dark);
+    --calendar-day-bg: var(--m3-surface-dark);
+    --calendar-day-border: var(--m3-outline-variant-dark);
+    --calendar-day-hover-bg: var(--m3-surface-2-dark);
+    --calendar-day-other-month-bg: var(--m3-surface-dim-dark);
+    --calendar-day-other-month-text: var(--m3-on-surface-variant-dark);
+    --calendar-day-today-bg: var(--m3-primary-container-dark);
+    --calendar-day-today-border: var(--m3-primary-dark);
+
+    /* Activity Thumbnails - M3 Dark Containers */
+    --activity-thumb-easy-bg: var(--m3-primary-container-dark); --activity-thumb-easy-text: var(--m3-on-primary-container-dark);
+    --activity-thumb-easy-green-bg: var(--m3-tertiary-container-dark); --activity-thumb-easy-green-text: var(--m3-on-tertiary-container-dark);
+    --activity-thumb-fartlek-bg: var(--m3-error-container-dark); --activity-thumb-fartlek-text: var(--m3-on-error-container-dark);
+    --activity-thumb-tempo-bg: var(--m3-secondary-container-dark); --activity-thumb-tempo-text: var(--m3-on-secondary-container-dark);
+    --activity-thumb-interval-bg: color-mix(in srgb, var(--m3-error-dark) 30%, var(--m3-surface-dark)); --activity-thumb-interval-text: var(--m3-error-dark);
+    --activity-thumb-long-bg: var(--m3-primary-container-dark); --activity-thumb-long-text: var(--m3-on-primary-container-dark);
+    --activity-thumb-race-bg: var(--m3-tertiary-container-dark); --activity-thumb-race-text: var(--m3-on-tertiary-container-dark);
+    --activity-thumb-rest-bg: var(--m3-surface-variant-dark); --activity-thumb-rest-text: var(--m3-on-surface-variant-dark);
+    --activity-thumb-default-bg: var(--m3-surface-2-dark); --activity-thumb-default-text: var(--m3-on-surface-dark);
+
+    /* Custom Rect Borders - M3 Dark */
+    --custom-rect-nav-border-t: var(--m3-secondary-dark);
+    --custom-rect-nav-border-r: var(--m3-primary-dark);
+    --custom-rect-nav-border-b: var(--m3-primary-dark);
+    --custom-rect-nav-border-l: var(--m3-secondary-dark);
+
+    --custom-rect-today-border-t: var(--m3-secondary-dark);
+    --custom-rect-today-border-r: var(--m3-primary-dark);
+    --custom-rect-today-border-b: var(--m3-primary-dark);
+    --custom-rect-today-border-l: var(--m3-secondary-dark);
+
+    --custom-rect-this-week-border-t: var(--m3-tertiary-dark);
+    --custom-rect-this-week-border-l: var(--m3-tertiary-dark);
+    --custom-rect-this-week-border-b: var(--m3-error-dark);
+    --custom-rect-this-week-border-r: var(--m3-error-dark);
+
+    /* Titles - M3 Dark */
+    --title-project-text: var(--m3-secondary-dark);
+    --title-marathon-text: var(--m3-primary-dark);
+
+    /* Loader - M3 Dark */
+    --loader-border: var(--m3-surface-variant-dark);
+    --loader-border-top: var(--m3-primary-dark);
+    /* PDF Button - M3 Dark */
+    --pdf-button-bg: var(--m3-secondary-dark);
+    --pdf-button-text: var(--m3-on-secondary-dark);
+    --pdf-button-hover-bg: color-mix(in srgb, var(--m3-secondary-dark) 90%, black);
+    /* Calendar Nav Button - M3 Dark */
+    --calendar-nav-button-bg: var(--m3-primary-container-dark);
+    --calendar-nav-button-text: var(--m3-on-primary-container-dark);
+    --calendar-nav-button-hover-bg: color-mix(in srgb, var(--m3-primary-container-dark) 90%, var(--m3-on-primary-container-dark));
+
+    /* Toggle Button - M3 Dark */
+    --toggle-button-bg: var(--m3-secondary-container-dark);
+    --toggle-button-text: var(--m3-on-secondary-container-dark);
+    --toggle-button-border: var(--m3-secondary-dark);
+    --toggle-button-hover-bg: color-mix(in srgb, var(--m3-secondary-container-dark) 90%, var(--m3-on-secondary-container-dark));
+    --toggle-button-hover-border: color-mix(in srgb, var(--m3-secondary-dark) 90%, black);
+
+    /* Activity Text - M3 Dark (using direct M3 color roles or lightened versions of light mode semantic colors) */
+    --activity-text-easy: var(--m3-primary-dark);
+    --activity-text-recovery: var(--m3-secondary-dark);
+    --activity-text-base: var(--m3-tertiary-dark);
+    --activity-text-tempo: color-mix(in srgb, var(--m3-secondary-dark) 70%, orange);
+    --activity-text-interval: var(--m3-error-dark);
+    --activity-text-fartlek: color-mix(in srgb, var(--m3-error-dark) 70%, #FFC0CB); /* Pinkish */
+    --activity-text-str-hills: color-mix(in srgb, var(--m3-neutral-dark) 70%, #A0522D); /* Sienna */
+    --activity-text-rest: var(--m3-on-surface-variant-dark);
+    --activity-text-zone-race: var(--m3-primary-container-dark);
+    --activity-text-double: color-mix(in srgb, var(--m3-secondary-dark) 70%, #A0522D);
+    --activity-text-mobility: color-mix(in srgb, var(--m3-neutral-dark) 70%, #20B2AA); /* LightSeaGreen */
+
+    --highlight-zone-pace-bg: var(--m3-primary-container-dark);
+    --highlight-zone-pace-text: var(--m3-on-primary-container-dark);
+
+    /* Companion App Nav Buttons - M3 Dark */
+    --companion-nav-button-hover-bg: var(--m3-surface-2-dark);
+    --companion-nav-button-hover-text: var(--m3-on-surface-dark);
+    --companion-nav-button-active-drills-bg: var(--m3-tertiary-container-dark);
+    --companion-nav-button-active-drills-text: var(--m3-on-tertiary-container-dark);
+    --companion-nav-button-active-mobility-bg: var(--m3-primary-container-dark);
+    --companion-nav-button-active-mobility-text: var(--m3-on-primary-container-dark);
+    --companion-nav-button-active-strength-bg: var(--m3-secondary-container-dark);
+    --companion-nav-button-active-strength-text: var(--m3-on-secondary-container-dark);
+
+    /* Exercise Card - M3 Dark */
+    --exercise-card-bg: var(--m3-surface-2-dark);
+    --exercise-card-shadow: 0px 1px 2px 0px rgba(0,0,0,0.3), 0px 2px 6px 2px rgba(0,0,0,0.15); /* M3 Elevation 2 */
+    --exercise-card-hover-shadow: 0px 1px 2px 0px rgba(0,0,0,0.3), 0px 4px 8px 3px rgba(0,0,0,0.15); /* M3 Elevation 3 */
+    --details-drills-bg: var(--m3-tertiary-container-dark); --details-drills-text: var(--m3-on-tertiary-container-dark);
+    --details-mobility-bg: var(--m3-primary-container-dark); --details-mobility-text: var(--m3-on-primary-container-dark);
+    --details-strength-bg: var(--m3-secondary-container-dark); --details-strength-text: var(--m3-on-secondary-container-dark);
+    --video-link-text: var(--m3-primary-dark);
+    --video-link-hover-text: color-mix(in srgb, var(--m3-primary-dark) 70%, var(--m3-on-primary-container-dark));
+    --updates-card-border-l: var(--m3-tertiary-dark);
+
+    /* Updates Modal - M3 Dark */
+    --updates-modal-bg: var(--m3-surface-2-dark);
+    --updates-modal-shadow: 0px 8px 10px 1px rgba(0,0,0,0.14), 0px 3px 14px 3px rgba(0,0,0,0.12), 0px 5px 5px -3px rgba(0,0,0,0.2); /* M3 Elevation 6 */
+    --updates-modal-header-gradient-start: var(--m3-primary-dark);
+    --updates-modal-header-gradient-end: var(--m3-tertiary-dark);
+    --updates-modal-close-text: var(--m3-on-surface-variant-dark);
+    --updates-modal-close-bg: var(--m3-surface-3-dark);
+    --updates-modal-close-hover-text: var(--m3-on-primary-container-dark);
+    --updates-modal-close-hover-bg: var(--m3-primary-container-dark);
+    --updates-modal-card-bg: var(--m3-surface-1-dark);
+    --updates-modal-card-border-l: var(--m3-primary-dark);
+
+    /* Today Pace Table - M3 Dark */
+    --today-pace-table-border: var(--m3-outline-variant-dark);
+    --today-pace-table-th-bg: var(--m3-surface-2-dark);
+    --today-pace-table-th-text: var(--m3-on-surface-dark);
+    --today-pace-table-header-low: var(--m3-primary-dark);
+    --today-pace-table-header-average: var(--m3-tertiary-dark);
+    --today-pace-table-header-high: var(--m3-error-dark);
+
+    /* Today's Activity Box - M3 Dark */
+    --todays-activity-box-border: var(--m3-outline-variant-dark);
+    --todays-activity-box-bg: var(--m3-surface-1-dark);
+    --todays-activity-text-default: var(--m3-primary-dark);
+    --todays-weekly-notes-box-border: var(--m3-outline-variant-dark);
+    --todays-weekly-notes-box-bg: var(--m3-surface-dim-dark);
+
+    /* Mobile Calendar Day Backgrounds - M3 Dark */
+    --mobile-calendar-day-fartlek-bg: var(--m3-error-container-dark); --mobile-calendar-day-fartlek-text: var(--m3-on-error-container-dark);
+    --mobile-calendar-day-easy-green-bg: var(--m3-tertiary-container-dark); --mobile-calendar-day-easy-green-text: var(--m3-on-tertiary-container-dark);
+    --mobile-calendar-day-interval-bg: color-mix(in srgb, var(--m3-error-dark) 30%, var(--m3-surface-dark)); --mobile-calendar-day-interval-text: var(--m3-error-dark);
+    --mobile-calendar-day-easy-bg: var(--m3-primary-container-dark); --mobile-calendar-day-easy-text: var(--m3-on-primary-container-dark);
+    --mobile-calendar-day-tempo-bg: var(--m3-secondary-container-dark); --mobile-calendar-day-tempo-text: var(--m3-on-secondary-container-dark);
+    --mobile-calendar-day-long-bg: var(--m3-primary-container-dark); --mobile-calendar-day-long-text: var(--m3-on-primary-container-dark);
+    --mobile-calendar-day-race-bg: var(--m3-tertiary-container-dark); --mobile-calendar-day-race-text: var(--m3-on-tertiary-container-dark);
+    --mobile-calendar-day-rest-bg: var(--m3-surface-variant-dark); --mobile-calendar-day-rest-text: var(--m3-on-surface-variant-dark);
+    --mobile-calendar-day-default-bg: var(--m3-surface-2-dark); --mobile-calendar-day-default-text: var(--m3-on-surface-dark);
+    --mobile-calendar-day-today-number-text: var(--m3-on-primary-container-dark);
+
+    /* ----- Restored Specific Dark Mode Overrides ----- */
+    /* Logo colors */
+    --logo-d-text: var(--m3-primary-dark);
+    --logo-n-gradient-start: var(--m3-primary-dark);
+    --logo-n-gradient-end: var(--m3-secondary-dark);
+    --logo-a-text: var(--m3-secondary-dark);
+    --logo-border-top: var(--m3-secondary-dark);
+    --logo-border-right: var(--m3-primary-dark);
+    --logo-border-bottom: var(--m3-primary-dark);
+    --logo-border-left: var(--m3-secondary-dark);
+
+    /* Card Border Overrides */
+    --overview-section-card-border-l: var(--m3-primary-dark);
+    --overview-section-card-border-b: var(--m3-secondary-dark);
+    --news-section-card-border-l: var(--m3-tertiary-container-dark); /* Was --dm-updates-modal-header-gradient-start */
+    --news-section-card-border-b: var(--m3-tertiary-dark); /* Was --nav-button-active-calendar-bg */
+    --race-section-card-border-l: var(--m3-primary-container-dark); /* Was --nav-button-active-race-bg */
+    --race-section-card-border-b: var(--m3-tertiary-dark); /* Was #db2777, mapped to M3 tertiary */
+
+    /* Custom Rect Borders */
+    --custom-rect-nav-border-t: var(--m3-secondary-dark);
+    --custom-rect-nav-border-r: var(--m3-primary-dark);
+    --custom-rect-nav-border-b: var(--m3-primary-dark);
+    --custom-rect-nav-border-l: var(--m3-secondary-dark);
+
+    --custom-rect-today-border-t: var(--m3-secondary-dark);
+    --custom-rect-today-border-r: var(--m3-primary-dark);
+    --custom-rect-today-border-b: var(--m3-primary-dark);
+    --custom-rect-today-border-l: var(--m3-secondary-dark);
+
+    /* Input field background and text for dark mode (previously inline in body.dark-mode input selectors) */
+    --dm-input-bg: var(--m3-surface-2-dark); /* A slightly elevated surface for input fields */
+    --dm-input-text: var(--m3-on-surface-dark);
+    --dm-input-border: var(--m3-outline-dark);
+}
+}
+
+/* ----- Restored Tailwind Specific Overrides for Dark Mode ----- */
+body.dark-mode .custom-rect-border-this-week {
+    border-top-color: var(--m3-tertiary-dark) !important;
+    border-left-color: var(--m3-tertiary-dark) !important;
+    border-bottom-color: var(--m3-primary-container-dark) !important;
+    border-right-color: var(--m3-primary-container-dark) !important;
+}
+
+body.dark-mode .calendar-day .day-number { color: var(--m3-on-surface-dark); }
+body.dark-mode .calendar-day.is-today .day-number { color: var(--m3-on-primary-container-dark); }
+body.dark-mode .calendar-nav-button svg { color: var(--m3-on-primary-container-dark); }
+
+body.dark-mode #darkModeToggle svg {
+    stroke: var(--m3-on-surface-dark);
+}
+
+/* Ensure Tailwind's text colors in HTML are overridden for dark mode */
+body.dark-mode .text-stone-800 { color: var(--m3-on-surface-dark) !important; }
+body.dark-mode .text-stone-700 { color: var(--m3-on-surface-variant-dark) !important; }
+body.dark-mode .text-stone-600 { color: var(--m3-neutral-variant-dark) !important; }
+body.dark-mode .text-sky-600 { color: var(--m3-primary-dark) !important; }
+body.dark-mode .text-sky-700 { color: color-mix(in srgb, var(--m3-primary-dark) 80%, black) !important; }
+body.dark-mode .text-amber-500 { color: var(--m3-secondary-dark) !important; }
+body.dark-mode .text-green-700 { color: var(--m3-tertiary-dark) !important; }
+body.dark-mode .text-violet-700 { color: var(--m3-primary-container-dark) !important; }
+body.dark-mode .text-violet-600 { color: color-mix(in srgb, var(--m3-primary-container-dark) 80%, white) !important; }
+body.dark-mode .text-indigo-700 { color: var(--m3-primary-dark) !important; } /* Remap indigo to primary */
+body.dark-mode .text-indigo-800 { color: color-mix(in srgb, var(--m3-primary-dark) 70%, black) !important; }
+body.dark-mode .text-emerald-600 { color: var(--m3-tertiary-container-dark) !important; }
+body.dark-mode .text-emerald-700 { color: var(--m3-tertiary-dark) !important; }
+body.dark-mode .text-yellow-500 { color: var(--m3-secondary-container-dark) !important; }
 
 
-    --custom-rect-nav-border-t: var(--dm-title-project-text);
-    --custom-rect-nav-border-r: var(--dm-title-marathon-text);
-    --custom-rect-nav-border-b: var(--dm-title-marathon-text);
-    --custom-rect-nav-border-l: var(--dm-title-project-text);
+/* Ensure Tailwind's background colors in HTML are overridden for dark mode */
+body.dark-mode .bg-sky-600 { background-color: var(--m3-primary-dark) !important; }
+body.dark-mode .hover\:bg-sky-700:hover { background-color: color-mix(in srgb, var(--m3-primary-dark) 80%, black) !important; }
 
-    --custom-rect-today-border-t: var(--dm-title-project-text);
-    --custom-rect-today-border-r: var(--dm-title-marathon-text);
-    --custom-rect-today-border-b: var(--dm-title-marathon-text);
-    --custom-rect-today-border-l: var(--dm-title-project-text);
+/* Dark mode for table row backgrounds (Tailwind bg-color-50 series) */
+body.dark-mode .bg-stone-100 { background-color: var(--m3-surface-2-dark) !important; }
+body.dark-mode .bg-red-50 { background-color: color-mix(in srgb, var(--m3-error-container-dark) 80%, var(--m3-surface-dark)) !important; }
+body.dark-mode .bg-orange-50 { background-color: color-mix(in srgb, var(--m3-secondary-container-dark) 30%, var(--m3-surface-dark)) !important; } /* orange -> secondary based */
+body.dark-mode .bg-amber-50 { background-color: var(--m3-secondary-container-dark) !important; }
+body.dark-mode .bg-yellow-50 { background-color: color-mix(in srgb, var(--m3-secondary-container-dark) 60%, var(--m3-surface-dark)) !important; }
+body.dark-mode .bg-lime-50 { background-color: color-mix(in srgb, var(--m3-tertiary-container-dark) 30%, var(--m3-surface-dark)) !important; } /* lime -> tertiary based */
+body.dark-mode .bg-green-50 { background-color: var(--m3-tertiary-container-dark) !important; }
+body.dark-mode .bg-emerald-50 { background-color: color-mix(in srgb, var(--m3-tertiary-container-dark) 60%, var(--m3-surface-dark)) !important; }
+body.dark-mode .bg-violet-50 { background-color: color-mix(in srgb, var(--m3-primary-container-dark) 60%, var(--m3-surface-dark)) !important; }
+
+
+/* Ensure text in these specific background rows is light */
+body.dark-mode .bg-red-50 td, body.dark-mode .bg-red-50 strong,
+body.dark-mode .bg-orange-50 td, body.dark-mode .bg-orange-50 strong,
+body.dark-mode .bg-amber-50 td, body.dark-mode .bg-amber-50 strong,
+body.dark-mode .bg-yellow-50 td, body.dark-mode .bg-yellow-50 strong,
+body.dark-mode .bg-lime-50 td, body.dark-mode .bg-lime-50 strong,
+body.dark-mode .bg-green-50 td, body.dark-mode .bg-green-50 strong,
+body.dark-mode .bg-emerald-50 td, body.dark-mode .bg-emerald-50 strong,
+body.dark-mode .bg-violet-50 td, body.dark-mode .bg-violet-50 strong,
+body.dark-mode .bg-stone-100 td, body.dark-mode .bg-stone-100 strong,
+body.dark-mode .bg-stone-100 th {
+    color: var(--m3-on-surface-dark) !important; /* General on-surface for dark theme */
+}
+
+/* Override for mileage chart modal background and text */
+body.dark-mode #mileage-chart-modal > div {
+    background-color: var(--m3-surface-2-dark); /* Elevated dialog surface */
+    color: var(--m3-on-surface-dark);
+}
+body.dark-mode #mileage-chart-modal-title {
+    color: var(--m3-primary-dark);
+}
+body.dark-mode #closeMileageChartBtn {
+    color: var(--m3-on-surface-dark);
+}
+body.dark-mode #closeMileageChartBtn:hover {
+    color: var(--m3-primary-dark);
+}
+
+/* Specific text color overrides for today-pace-table if not covered by general text-stone or activity-text */
+body.dark-mode .today-pace-table .text-teal-700 { color: var(--m3-tertiary-dark) !important; } /* Teal -> Tertiary */
+body.dark-mode .today-pace-table .text-green-600 { color: var(--m3-primary-dark) !important; } /* Green -> Primary */
+body.dark-mode .today-pace-table .text-sky-600 { color: var(--m3-secondary-dark) !important; } /* Sky -> Secondary */
+body.dark-mode .today-pace-table .text-lime-600 { color: color-mix(in srgb, var(--m3-tertiary-dark) 70%, white) !important; }
+body.dark-mode .today-pace-table .text-amber-500 { color: var(--m3-secondary-dark) !important; } /* Amber -> Secondary */
+body.dark-mode .today-pace-table .text-red-600 { color: var(--m3-error-dark) !important; }
+
+/* Ensure all text in schedule-table and today-pace-table defaults to M3 colors */
+body.dark-mode .schedule-table td,
+body.dark-mode .today-pace-table td {
+    color: var(--m3-on-surface-dark); /* Default for all td cells */
+}
+body.dark-mode .schedule-table td.font-bold { /* Day name */
+    color: var(--m3-on-surface-dark) !important;
+}
+/* Ensure specific pace zone colors in today's pace table override the default td color */
+body.dark-mode .today-pace-table td.text-green-600 { color: var(--m3-primary-dark) !important; }
+body.dark-mode .today-pace-table td.text-sky-600 { color: var(--m3-secondary-dark) !important; }
+
+/* Dark mode for input fields that were previously missed in the main block */
+body.dark-mode input[type="text"]:not(#userIdInput),
+body.dark-mode input[type="number"],
+body.dark-mode input[type="date"] {
+    background-color: var(--dm-input-bg);
+    color: var(--dm-input-text);
+    border: 1px solid var(--dm-input-border);
+}
+
+/* Dark mode for updates card (overview page) and modal */
+body.dark-mode .updates-card { /* Used on overview page */
+    border-left-color: var(--m3-tertiary-container-dark);
+}
+body.dark-mode #updates-modal .updates-card { /* Used inside modal */
+    border-left-color: var(--m3-primary-dark);
+    background-color: var(--m3-surface-1-dark);
+}
+body.dark-mode #updates-modal .updates-modal-content-wrapper {
+     background-color: var(--m3-surface-2-dark); /* Modal content wrapper slightly more elevated */
+}
+
+/* Dark mode for today card navigation arrows */
+body.dark-mode #todayPrevDay:not(:disabled),
+body.dark-mode #todayNextDay:not(:disabled) {
+    color: var(--m3-primary-dark);
+}
+body.dark-mode #todayPrevDay:not(:disabled):hover,
+body.dark-mode #todayNextDay:not(:disabled):hover {
+    background-color: var(--m3-surface-3-dark); /* Slightly more elevated on hover */
+    color: var(--m3-primary-dark);
 }
 
 .main-container {
     background-color: var(--main-container-bg);
-    border-radius: 0.75rem;
+    border-radius: 0.75rem; /* 12px - Good for M3 Card */
     box-shadow: var(--main-container-shadow);
     width: 100%;
     max-width: 64rem; /* 1024px */
@@ -479,10 +751,13 @@ body.dark-mode {
     }
 }
 .nav-button {
-    padding: 0.6rem 1.1rem;
-    border-radius: 0.375rem;
+    padding: 0.625rem 1.5rem; /* 10px 24px - M3 Text Button like */
+    border-radius: 9999px; /* Pill shape */
     transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    font-weight: 600;
+    font-size: 0.875rem; /* 14px - M3 Label Large */
+    font-weight: 600; /* M3 Label Large (often 500, but 600 is common here) */
+    letter-spacing: 0.00625em; /* M3 Label Large (0.1px for 14px size) */
+    text-transform: none; /* M3 Buttons are sentence case */
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 .nav-button:hover:not(.active-overview):not(.active-plan):not(.active-calendar):not(.active-race):not(.active-info):not(.active-companion) {
@@ -510,11 +785,14 @@ body.dark-mode {
 
 
 .phase-button {
-    padding: 0.5rem 1rem;
-    border-radius: 0.375rem;
+    padding: 0.5rem 1.25rem; /* 8px 20px */
+    border-radius: 8px; /* M3 small button */
     border-width: 1px;
     transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-    font-weight: 500;
+    font-size: 0.875rem; /* 14px - M3 Label Large */
+    font-weight: 500; /* M3 Label Large */
+    letter-spacing: 0.00625em; /* M3 Label Large */
+    text-transform: none;
 }
 .phase-button-preseason { border-color: var(--phase-button-preseason-border); color: var(--phase-button-preseason-text); }
 .phase-button-preseason:hover:not(.active) { background-color: var(--phase-button-preseason-hover-bg); }
@@ -533,8 +811,14 @@ body.dark-mode {
 .phase-button-taper.active { background-color: var(--phase-button-taper-active-bg); color: var(--phase-button-taper-active-text); border-color: var(--phase-button-taper-active-border); }
 
 .week-button {
-    padding: 0.5rem 0.75rem; border-radius: 0.375rem; border: 1px solid var(--week-button-border);
-    font-weight: 500; text-align: center;
+    padding: 0.5rem 1rem; /* 8px 16px */
+    border-radius: 8px; /* M3 small button */
+    border: 1px solid var(--week-button-border);
+    font-size: 0.875rem; /* 14px - M3 Label Large */
+    font-weight: 500; /* M3 Label Large */
+    letter-spacing: 0.00625em; /* M3 Label Large */
+    text-transform: none;
+    text-align: center;
     transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
 }
 .week-button.active {
@@ -558,9 +842,15 @@ body.dark-mode {
 .content-card {
     background-color: var(--content-card-bg);
     padding: 1rem;
-    border-radius: 0.5rem;
+    border-radius: 12px; /* M3 Card */
 }
-.content-card h3.phase-title-style { margin-bottom: 0.5rem; }
+.content-card h3.phase-title-style {
+    margin-bottom: 0.5rem;
+    font-size: 1.125rem; /* 18px - M3 Title Medium (could be 16px too) */
+    font-weight: 600; /* M3 Title Medium (often 500) */
+    letter-spacing: 0.009375em; /* M3 Title Medium (0.15px for 16px) */
+    line-height: 1.5rem; /* 24px */
+}
 
 .overview-section-card { /* Base for most cards not getting custom rect border */
     border-left-width: 4px;
@@ -583,12 +873,12 @@ body.dark-mode {
 
 .chart-container { position: relative; width: 100%; max-width: 800px; margin-left: auto; margin-right: auto; height: 300px; max-height: 400px; }
 @media (min-width: 768px) { .chart-container { height: 350px; } }
-.data-table { width: 100%; margin-top: 0.5rem; border-collapse: collapse; font-size: 0.875rem; }
+.data-table { width: 100%; margin-top: 0.5rem; border-collapse: collapse; font-size: 0.75rem; /* 12px - M3 Body Small */ line-height: 1.33; /* 16px for 12px */ letter-spacing: 0.033em; /* 0.4px for 12px */ }
 .data-table th, .data-table td { border: 1px solid var(--table-border); padding: 0.5rem; text-align: left; }
-.data-table th { font-weight: 600; background-color: var(--table-th-bg); }
-.schedule-table { width: 100%; margin-top: 0.75rem; border-collapse: collapse; font-size: 0.875rem; border: 1px solid var(--schedule-table-border); border-radius: 0.5rem; overflow: hidden; }
+.data-table th { font-weight: 600; background-color: var(--table-th-bg); font-size: 0.75rem; /* M3 Label Small or Body Small */ }
+.schedule-table { width: 100%; margin-top: 0.75rem; border-collapse: collapse; font-size: 0.75rem; /* 12px - M3 Body Small */ line-height: 1.33; letter-spacing: 0.033em; border: 1px solid var(--schedule-table-border); border-radius: 0.5rem; overflow: hidden; }
 .schedule-table th, .schedule-table td { padding: 0.75rem; text-align: left; border-bottom: 1px solid var(--schedule-table-border); }
-.schedule-table th { background-color: var(--schedule-table-th-bg); color: var(--schedule-table-th-text); font-weight: 600; }
+.schedule-table th { background-color: var(--schedule-table-th-bg); color: var(--schedule-table-th-text); font-weight: 600; /* M3 Label Small/Medium often 500 */ font-size: 0.75rem; }
 .schedule-table tr:last-child td { border-bottom: none; }
 .schedule-table td:first-child { font-weight: 500; width: 25%; max-width: 100px; }
 
@@ -596,6 +886,7 @@ body.dark-mode {
     border-width: 2px;
     border-color: var(--input-userid-border);
     background-color: var(--main-container-bg); /* For dark mode */
+    border-radius: 8px;
     color: var(--text-color); /* For dark mode */
 }
 #userIdInput:focus {
@@ -606,6 +897,8 @@ label[for="userIdInput"] {
     border-left-width: 4px;
     border-color: var(--label-userid-border-l);
     padding-left: 0.5rem;
+    font-size: 0.75rem; /* 12px - M3 Body Small / Label Medium */
+    font-weight: 400;
 }
 #loginButton {
     border-radius: 9999px;
@@ -675,8 +968,12 @@ body.dark-mode input[type="date"] {
 #installPwaButton {
     background-color: var(--install-pwa-button-bg);
     color: var(--install-pwa-button-text);
-    font-weight: 600;
+    font-size: 0.875rem; /* 14px - M3 Label Large */
+    font-weight: 600; /* M3 Label Large (often 500) */
+    letter-spacing: 0.00625em; /* M3 Label Large */
+    text-transform: none;
     border: 2px solid var(--install-pwa-button-border);
+    border-radius: 16px; /* M3 Extended FAB like */
 }
 #installPwaButton:hover {
     background-color: var(--install-pwa-button-hover-bg);
@@ -693,7 +990,7 @@ body.dark-mode input[type="date"] {
     color: var(--calendar-header-text);
     border: 1px solid var(--calendar-header-border);
 }
-.calendar-day { background-color: var(--calendar-day-bg); padding: 0.5rem; min-height: 100px; font-size: 0.75rem; border: 1px solid var(--calendar-day-border); cursor: default; }
+.calendar-day { background-color: var(--calendar-day-bg); padding: 0.5rem; min-height: 100px; font-size: 0.75rem; border: 1px solid var(--calendar-day-border); cursor: default; border-radius: 8px; }
 .calendar-day.has-activity { cursor: pointer; }
 .calendar-day.has-activity:hover { background-color: var(--calendar-day-hover-bg); }
 .calendar-day.other-month { background-color: var(--calendar-day-other-month-bg); color: var(--calendar-day-other-month-text); cursor: default;}
@@ -707,7 +1004,9 @@ body.dark-mode .calendar-day.is-today .day-number { color: var(--dm-text-color);
 .activity-thumbnail {
     display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     padding: 0.25rem; border-radius: 0.25rem; margin-top: 0.25rem;
-    font-size: 0.7rem;
+    font-size: 0.6875rem; /* 11px - M3 Label Small */
+    font-weight: 500; /* M3 Label Small */
+    letter-spacing: 0.045em; /* M3 Label Small (0.5px for 11px) */
 }
 .activity-thumbnail-easy { background-color: var(--activity-thumb-easy-bg); color: var(--activity-thumb-easy-text); }
 .activity-thumbnail-easy-green { background-color: var(--activity-thumb-easy-green-bg); color: var(--activity-thumb-easy-green-text); }
@@ -749,9 +1048,11 @@ body.dark-mode .custom-rect-border-this-week {
 }
 
 
-.main-title {
-    font-weight: 800;
-    letter-spacing: -0.025em;
+.main-title { /* Corresponds to h1.main-title */
+    font-size: 2rem; /* 32px - M3 Headline Large */
+    font-weight: 500; /* M3 Headline Large (often 400 or 500) */
+    letter-spacing: 0; /* M3 Headline Large */
+    line-height: 2.5rem; /* 40px for 32px size */
 }
 .title-project {
     color: var(--title-project-text);
@@ -773,9 +1074,11 @@ body.dark-mode .custom-rect-border-this-week {
     background-color: var(--pdf-button-bg);
     color: var(--pdf-button-text);
     padding: 0.25rem 0.5rem;
-    font-size: 0.75rem;
+    font-size: 0.75rem; /* 12px - M3 Label Medium */
     border-radius: 9999px;
-    font-weight: 500;
+    font-weight: 500; /* M3 Label Medium */
+    letter-spacing: 0.041em; /* M3 Label Medium (0.5px for 12px) */
+    text-transform: none;
     transition: background-color 0.2s;
     display: inline-flex;
     align-items: center;
@@ -794,6 +1097,9 @@ body.dark-mode .custom-rect-border-this-week {
     padding: 0.5rem 0.75rem;
     border-radius: 9999px;
     transition: background-color 0.2s ease-in-out;
+    font-size: 0.875rem; /* Ensure icon button text (if any) would match label large */
+    font-weight: 500;
+    text-transform: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -816,9 +1122,11 @@ body.dark-mode .calendar-nav-button svg {
     color: var(--toggle-button-text);
     border: 2px solid var(--toggle-button-border);
     padding: 0.4rem 0.9rem;
-    font-size: 0.9rem;
-    font-weight: 600;
-    border-radius: 0.375rem;
+    font-size: 0.875rem; /* 14px - M3 Label Large */
+    font-weight: 600; /* M3 Label Large */
+    letter-spacing: 0.00625em; /* M3 Label Large */
+    text-transform: none;
+    border-radius: 12px; /* M3 Medium button */
     transition: background-color 0.2s, border-color 0.2s;
 }
 #toggleRepeatsButton:hover, #toggleZonesButton:hover {
@@ -860,10 +1168,13 @@ body.dark-mode .activity-text-mobility, body.dark-mode .pace-text-mobility { col
 
 /* --- Companion App Styles --- */
 .companion-nav-button {
-    padding: 0.6rem 1.1rem;
-    border-radius: 0.375rem;
+    padding: 0.625rem 1.5rem; /* 10px 24px */
+    border-radius: 9999px; /* Pill shape */
     transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    font-weight: 600;
+    font-size: 0.875rem; /* 14px - M3 Label Large */
+    font-weight: 600; /* M3 Label Large */
+    letter-spacing: 0.00625em; /* M3 Label Large */
+    text-transform: none;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     cursor: pointer;
 }
@@ -877,7 +1188,7 @@ body.dark-mode .activity-text-mobility, body.dark-mode .pace-text-mobility { col
 
 .exercise-card {
     background-color: var(--exercise-card-bg);
-    border-radius: 0.5rem;
+    border-radius: 12px; /* M3 Card */
     padding: 1rem;
     box-shadow: var(--exercise-card-shadow);
     transition: transform 0.2s, box-shadow 0.2s;
@@ -887,7 +1198,10 @@ body.dark-mode .activity-text-mobility, body.dark-mode .pace-text-mobility { col
     box-shadow: var(--exercise-card-hover-shadow);
 }
 .exercise-card h3 {
-    font-weight: 600;
+    font-size: 1.125rem; /* 18px - M3 Title Medium (could be 16px) */
+    font-weight: 600; /* M3 Title Medium (often 500) */
+    letter-spacing: 0.009375em; /* M3 Title Medium */
+    line-height: 1.5rem; /* 24px */
     margin-bottom: 0.25rem;
     color: var(--text-color); /* Ensure heading text color is updated */
 }
@@ -926,8 +1240,8 @@ body.dark-mode .updates-card {
 
 /* --- Updates Modal --- */
 #updates-modal .updates-modal-content-wrapper {
-    background-color: var(--updates-modal-bg);
-    border-radius: 0.75rem;
+    background-color: var(--m3-surface-3-light); /* Dialogs are more elevated */
+    border-radius: 28px; /* M3 Dialog shape */
     box-shadow: var(--updates-modal-shadow);
     width: 100%;
     max-width: 36rem; /* 576px */
@@ -941,6 +1255,11 @@ body.dark-mode .updates-card {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    /* Assuming this H2 maps to M3 Headline Small / Title Large */
+    font-size: 1.5rem; /* 24px - M3 Headline Small */
+    font-weight: 500; /* M3 Headline Small */
+    letter-spacing: 0;
+    line-height: 2rem; /* 32px */
 }
 #close-updates-modal-btn {
     position: absolute;
@@ -1164,7 +1483,9 @@ body.dark-mode #updates-modal .updates-modal-content-wrapper {
     width: 100%;
     margin-top: 0.5rem;
     border-collapse: collapse;
-    font-size: 0.875rem;
+    font-size: 0.75rem; /* 12px - M3 Body Small */
+    line-height: 1.33; /* 16px */
+    letter-spacing: 0.033em; /* 0.4px */
 }
 .today-pace-table th, .today-pace-table td {
     border: 1px solid var(--today-pace-table-border);
@@ -1173,8 +1494,9 @@ body.dark-mode #updates-modal .updates-modal-content-wrapper {
 }
 .today-pace-table th {
     background-color: var(--today-pace-table-th-bg);
-    font-weight: 500;
+    font-weight: 500; /* M3 Label Small/Medium */
     color: var(--today-pace-table-th-text);
+    font-size: 0.75rem; /* M3 Label Small or Body Small */
 }
 .today-pace-table th.header-zone { color: var(--today-pace-table-th-text); } /* Already covered by general th */
 .today-pace-table th.header-pace { color: var(--today-pace-table-th-text); } /* Already covered by general th */
@@ -1404,14 +1726,21 @@ body.dark-mode .hover\:bg-sky-700:hover { background-color: var(--nav-button-act
     body.dark-mode .bg-violet-50 td, body.dark-mode .bg-violet-50 strong,
     body.dark-mode .bg-stone-100 td, body.dark-mode .bg-stone-100 strong,
     body.dark-mode .bg-stone-100 th { /* For schedule table headers */
-        color: var(--dm-text-color) !important;
+        color: var(--m3-on-surface-dark) !important;
     }
 
 
 /* Override for mileage chart modal background and text */
+#mileage-chart-modal > div { /* General styling for the modal content area */
+    background-color: var(--m3-surface-3-light);
+    color: var(--m3-on-surface-light);
+    border-radius: 28px; /* M3 Dialog shape */
+    /* Note: p-4, relative, w-full, max-w-3xl are from HTML */
+}
 body.dark-mode #mileage-chart-modal > div {
-    background-color: var(--dm-main-container-bg);
-    color: var(--dm-text-color);
+    background-color: var(--m3-surface-3-dark); /* Dialogs are more elevated */
+    color: var(--m3-on-surface-dark);
+    /* border-radius is now globally applied */
 }
 body.dark-mode #mileage-chart-modal-title {
     color: var(--dm-title-marathon-text); /* Or a more general heading color for dark mode */
