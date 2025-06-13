@@ -1,0 +1,20 @@
+{
+  "name": "Distance Association",
+  "short_name": "DNA",
+  "start_url": "https://minas4u.github.io/RUN/",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "For Runners.",
+  "icons": [
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
