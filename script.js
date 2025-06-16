@@ -30,6 +30,243 @@ const companionDataUrl = "https://script.google.com/macros/s/AKfycbw3fpGf2W8ANwI
 // Global variables to hold application state and data.
 let marathonPlan = null; // Stores the entire JSON object from the Google Sheet.
 let datedTrainingPlan = []; // Stores each day of the plan with a specific date.
+
+const marathonGreats = [
+    "Eliud Kipchoge", "Kelvin Kiptum", "Kenenisa Bekele", "Haile Gebrselassie",
+    "Samuel Wanjiru", "Abebe Bikila", "Wilson Kipsang", "Geoffrey Mutai",
+    "Dennis Kimetto", "Tsegaye Kebede", "Evans Chebet", "Tamirat Tola",
+    "Sisay Lemma", "Lawrence Cherono", "Khalid Khannouchi", "Abel Kirui",
+    "Gezahegne Abera", "Stephen Kiprotich", "Jaouad Gharib", "Patrick Makau",
+    "Moses Mosop", "Frank Shorter", "Lelisa Desisa", "Ghirmay Ghebreslassie",
+    "Stefano Baldini", "Brigid Kosgei", "Paula Radcliffe", "Catherine Ndereba",
+    "Tigist Assefa", "Sifan Hassan", "Mary Keitany", "Ruth Chepngetich",
+    "Peres Jepchirchir", "Joan Benoit Samuelson", "Grete Waitz", "Rosa Mota",
+    "Naoko Takahashi", "Constantina Diță", "Mizuki Noguchi", "Tiki Gelana",
+    "Derartu Tulu", "Fatuma Roba", "Irina Mikitenko", "Joyciline Jepkosgei",
+    "Hellen Obiri", "Yalemzerf Yehualaw", "Gete Wami", "Amane Beriso",
+    "Lornah Kiplagat", "Jemima Sumgong"
+];
+
+/**
+ * Shuffles an array in place using the Fisher-Yates algorithm.
+ * @param {Array} array The array to shuffle.
+ */
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+    }
+}
+
+shuffleArray(marathonGreats); // Shuffle the list on script load
+
+const activityTips = {
+    base: [
+        "Keep it Conversational: You should be able to hold a full conversation without gasping for air.",
+        "Focus on Duration, Not Distance: The primary goal is to spend time on your feet.",
+        "Maintain a Steady Effort: Aim for a consistent, moderate intensity throughout the run.",
+        "Listen to Your Body: If you feel fatigued, it's okay to slow down.",
+        "Run by Feel: Don't be a slave to your GPS watch; learn to gauge your effort intuitively.",
+        "Build Your Aerobic Foundation: These runs are the cornerstone of your endurance.",
+        "Incorporate Regularly: Schedule 2-3 base runs per week in your training plan.",
+        "Vary Your Routes: Keep your mind engaged by exploring different running paths.",
+        "Don't Chase Pace: The speed will come naturally as your fitness improves.",
+        "Proper Warm-up: Start with 5-10 minutes of walking or slow jogging.",
+        "Cool Down Effectively: End with 5-10 minutes of walking to gradually lower your heart rate.",
+        "Stay Relaxed: Pay attention to your form and release any tension in your shoulders and hands.",
+        "Hydrate Beforehand: Drink water throughout the day leading up to your run.",
+        "Fuel Appropriately: Have a small, easily digestible snack 1-2 hours before if needed.",
+        "Practice Nasal Breathing: This can help you maintain a controlled effort.",
+        "Run Solo or with a Partner: Use the time for introspection or social interaction.",
+        "Leave the Headphones at Home (Occasionally): Tune into your body's rhythms and the environment.",
+        "Increase Duration Gradually: Follow the 10% rule, increasing your total weekly mileage by no more than 10%.",
+        "Monitor Your Heart Rate: Aim for 60-70% of your maximum heart rate.",
+        "Don't Overdress: Wear breathable clothing to avoid overheating.",
+        "Be Consistent: The benefits of base runs accumulate over time.",
+        "Log Your Runs: Keep a training journal to track your progress and how you feel.",
+        "Run on Softer Surfaces: If possible, choose trails or tracks to reduce impact.",
+        "Incorporate Strides Post-Run: Add a few short bursts of speed after your run to improve form.",
+        "Enjoy the Process: Base runs should be a sustainable and enjoyable part of your routine."
+    ],
+    easy: [
+        "Go Slower Than You Think: The pace should feel genuinely easy and relaxed.",
+        "Focus on Recovery: The purpose is to help your body recover from harder workouts.",
+        "Keep Your Heart Rate Low: Aim for below 70% of your maximum heart rate.",
+        "Short and Sweet: Easy runs are typically shorter in duration than base runs.",
+        "Listen to Your Breathing: It should be light and effortless.",
+        "Don't Compare to Others: Your easy pace is unique to you.",
+        "Perfect Your Form: Use the low intensity to focus on running mechanics.",
+        "Run on Flat Terrain: Avoid hills that will elevate your heart rate.",
+        "Leave Your Ego at Home: There are no awards for winning an easy run.",
+        "Hydrate Adequately: Even on easy days, proper hydration is crucial.",
+        "Fuel for Recovery: Have a balanced meal or snack post-run to replenish energy stores.",
+        "Schedule After Hard Efforts: Place easy runs on the day after a tough workout.",
+        "Use as a Mental Break: Allow your mind to wander and de-stress.",
+        "Wear Comfortable Gear: Opt for your most comfortable shoes and apparel.",
+        "Don't Be Afraid to Walk: If you feel tired, taking walk breaks is perfectly acceptable.",
+        "Be Mindful of Aches and Pains: Use this run to check in with your body.",
+        "Run with Slower Friends: This can help you keep the pace honest and enjoyable.",
+        "Enjoy the Scenery: Take in your surroundings without the pressure of a hard workout.",
+        "Consistency is Key: Regular easy runs are vital for long-term progress.",
+        "Don't Skip Them: They are just as important as your harder training sessions.",
+        "Incorporate Dynamic Stretches Before: Prepare your muscles with light, active movements.",
+        "Stretch Gently Afterwards: Focus on static stretches for major muscle groups.",
+        "Track Your Effort Level: Note how easy the run felt in your training log.",
+        "Run by Time, Not Distance: This can help remove the pressure to cover a certain mileage.",
+        "Smile! Easy runs should be a happy and rejuvenating experience."
+    ],
+    tempo: [
+        "Find Your \"Comfortably Hard\" Pace: It should feel challenging but sustainable.",
+        "Warm-Up is Non-Negotiable: Spend at least 10-15 minutes jogging easily.",
+        "Gradual Pace Increase: Ease into your tempo pace over a few minutes.",
+        "Maintain a Strong, Steady Effort: The goal is to hold a consistent pace.",
+        "Focus on Your Breathing: It will be deep and rhythmic, but you shouldn't be gasping.",
+        "Stay Relaxed Under Pressure: Avoid tensing up as the effort increases.",
+        "Break it into Intervals: Start with shorter tempo segments (e.g., 2 x 10 minutes).",
+        "Cool Down Thoroughly: Jog for 10-15 minutes after your last tempo segment.",
+        "Hydrate Well Before and After: These runs deplete your glycogen stores.",
+        "Fuel Strategically: Eat a carbohydrate-rich meal a few hours before.",
+        "Listen to Your Body's Feedback: If you're struggling to hold the pace, ease back.",
+        "Use a Heart Rate Monitor: Aim for 85-90% of your maximum heart rate.",
+        "Practice Mental Toughness: These runs build both physical and mental resilience.",
+        "Vary the Duration: As you get fitter, gradually increase the length of your tempo segments.",
+        "Incorporate into a Training Plan: Schedule one tempo run per week.",
+        "Run on a Measured Course: A track or flat road can help you gauge your pace accurately.",
+        "Simulate Race Conditions: Practice your race day nutrition and hydration.",
+        "Don't Race Your Tempo Runs: The goal is sustained effort, not an all-out sprint.",
+        "Log Your Splits: Track your pace to monitor your progress over time.",
+        "Run with a Group: A running partner or group can help you stay motivated and on pace.",
+        "Focus on a Strong Finish: Try to maintain or slightly increase your effort in the final minutes.",
+        "Post-Run Recovery is Crucial: Replenish with a mix of carbohydrates and protein.",
+        "Listen to Upbeat Music: A good playlist can help you push through the discomfort.",
+        "Visualize Success: Picture yourself running strong and controlled.",
+        "Be Proud of Your Effort: Tempo runs are tough; acknowledge your hard work."
+    ],
+    interval: [
+        "Proper Warm-Up is Essential: Include jogging and dynamic stretches.",
+        "Start with Shorter Intervals: Beginners can start with 200-400 meter repeats.",
+        "Recovery is Part of the Workout: The rest between intervals is crucial for performance.",
+        "Active Recovery is Often Best: Walk or jog slowly during your rest periods.",
+        "Focus on Consistent Pacing: Aim to run all your intervals at a similar speed.",
+        "Don't Go All-Out on the First Rep: Pace yourself to complete the entire workout.",
+        "Maintain Good Form, Even When Tired: Concentrate on your running mechanics.",
+        "Cool Down Adequately: Jog for at least 10 minutes to flush out lactic acid.",
+        "Hydrate Before, During, and After: High-intensity efforts lead to greater fluid loss.",
+        "Fuel for a High-Intensity Session: Have a light, carbohydrate-based snack beforehand.",
+        "Listen to Your Body's Signals: Stop if you feel any sharp or unusual pain.",
+        "Use a Track for Accuracy: Running on a track makes it easy to measure interval distances.",
+        "Vary Your Interval Lengths: Mix in shorter, faster intervals with longer, steadier ones.",
+        "Incorporate into Your Weekly Schedule: Limit interval sessions to 1-2 times per week.",
+        "Run with a Friend or Group: The shared effort can be motivating.",
+        "Focus on Your Breathing: It will be labored, but try to keep it as controlled as possible.",
+        "Log Your Workout Details: Record the number of intervals, pace, and recovery time.",
+        "Gradually Increase the Difficulty: You can add more reps or decrease the recovery time.",
+        "Don't Neglect Your Cool-Down Stretches: Help your muscles recover and prevent stiffness.",
+        "Celebrate Small Victories: Acknowledge your progress and hard work.",
+        "Choose the Right Shoes: Wear lightweight trainers that are suitable for faster running.",
+        "Practice Mental Focus: These workouts demand a high level of concentration.",
+        "Don't Compare Yourself to Others: Focus on your own effort and improvement.",
+        "Replenish Glycogen Stores Post-Run: Consume a snack or meal with carbohydrates and protein.",
+        "Enjoy the Feeling of Accomplishment: Interval training is a powerful way to boost your fitness."
+    ],
+    fartlek: [
+        "\"Fartlek\" Means \"Speed Play\" in Swedish: Embrace the unstructured nature of this run.",
+        "No Pre-Set Distances or Times: Vary your speed based on how you feel.",
+        "Use Landmarks as Cues: Sprint to a lamppost, jog to a tree, etc.",
+        "Listen to Your Body's Instincts: Speed up when you feel good, and slow down to recover.",
+        "A Great Introduction to Speedwork: It's less intimidating than a formal interval session.",
+        "Warm-Up Properly: Start with 10-15 minutes of easy jogging.",
+        "Cool Down Thoroughly: End with a 10-minute easy jog or walk.",
+        "Run with a Group for Fun: Take turns leading and choosing the next \"sprint.\"",
+        "Incorporate Hills and Varied Terrain: Use the landscape to dictate your effort.",
+        "Don't Look at Your Watch: The focus should be on feel, not data.",
+        "Practice Shifting Gears: This helps you learn to change pace smoothly.",
+        "Stay Relaxed and Playful: Don't take it too seriously; have fun with it.",
+        "Be Spontaneous: The beauty of fartlek is its unpredictability.",
+        "Incorporate into Your Weekly Routine: It's a great way to add variety to your training.",
+        "Hydrate as Needed: Carry water if you'll be out for a longer fartlek session.",
+        "Fuel Appropriately Beforehand: A light snack can provide the energy you need.",
+        "Can Be Done Anywhere: Roads, trails, parks – any location is suitable for a fartlek.",
+        "A Good Way to Break Out of a Running Rut: The variety can reignite your motivation.",
+        "Focus on Good Form During Surges: Maintain your technique even when running faster.",
+        "Listen to Your Favorite Music: Let the beat guide your changes in pace.",
+        "Don't Overdo the \"Hard\" Portions: The majority of the run should still be at an easy to moderate effort.",
+        "Challenge Yourself: Pick a landmark in the distance and try to reach it at a faster pace.",
+        "It's a Mental Workout Too: Teaches you to be adaptable and responsive.",
+        "Post-Run, Reflect on How You Felt: This can inform your future training.",
+        "Embrace the Freedom: Enjoy a run that is not dictated by numbers and plans."
+    ],
+    long: [
+        "Go Slower Than Your Race Pace: The primary goal is endurance, not speed.",
+        "Start with a Manageable Distance: Gradually increase your long run distance each week.",
+        "Follow the 10% Rule: Don't increase your long run by more than 10-15% from the previous week.",
+        "Plan Your Route in Advance: Know where you're going to avoid getting lost.",
+        "Tell Someone Your Route and Estimated Time: Safety first, especially on long solo runs.",
+        "Practice Your Race Day Nutrition and Hydration: Test out gels, chews, and drinks.",
+        "Break the Run into Segments Mentally: Focus on one mile or landmark at a time.",
+        "Warm-Up Before You Start: A few minutes of walking or slow jogging will suffice.",
+        "Cool Down Afterwards: A short walk can help the recovery process begin.",
+        "Wear a Hydration Vest or Belt: Carry enough fluids, especially in warm weather.",
+        "Fuel Early and Often: Start taking in calories within the first 45-60 minutes.",
+        "Listen to Your Body: Slow down or walk if you're feeling overly fatigued.",
+        "Run with a Friend or Group: The miles will pass more quickly with company.",
+        "Protect Yourself from the Sun: Wear sunscreen, a hat, and sunglasses.",
+        "Prevent Chafing: Use anti-chafing balm in sensitive areas.",
+        "Incorporate a \"Dress Rehearsal\": Wear the shoes and clothes you plan to race in.",
+        "Pace Yourself from the Start: Don't go out too fast and burn out early.",
+        "Vary Your Long Run Routes: Keep things interesting by exploring new areas.",
+        "Schedule a \"Step-Back\" Week: Every 3-4 weeks, reduce the distance of your long run to aid recovery.",
+        "Post-Run Recovery is Key: Refuel with a mix of carbs and protein within 30-60 minutes.",
+        "Take a Nap or Rest Afterwards: Your body will thank you for the extra recovery time.",
+        "Log Your Long Runs: Note your distance, time, and how you felt.",
+        "Mentally Prepare for the Challenge: Long runs are as much a mental test as a physical one.",
+        "Celebrate Your Accomplishment: Be proud of the distance you've covered.",
+        "Don't Be Afraid to End a Long Run Early: If you're not feeling well, it's better to be cautious."
+    ],
+    rest: [
+        "Rest Means Rest: Don't be tempted to do a \"light\" workout.",
+        "Listen to Your Body's Need for Recovery: It's when you get stronger.",
+        "Active Recovery is an Option: Gentle activities like walking or yoga are beneficial.",
+        "Stay Hydrated: Drink plenty of water to aid muscle repair.",
+        "Focus on Nutritious Food: Eat a balanced diet to replenish your energy stores.",
+        "Get Plenty of Sleep: Aim for 7-9 hours of quality sleep.",
+        "Stretch and Foam Roll: Gently release muscle tension and improve flexibility.",
+        "Take an Ice Bath or Cold Shower: This can help reduce inflammation.",
+        "Enjoy a Warm Bath with Epsom Salts: Soothe sore muscles and relax.",
+        "Plan Your Upcoming Workouts: Use the mental break to look ahead in your training.",
+        "Catch Up on Other Hobbies: Enjoy activities you may not have time for on training days.",
+        "Reflect on Your Training: Review your log and celebrate your progress.",
+        "Don't Feel Guilty About Taking a Day Off: It's an essential part of any training plan.",
+        "Schedule Your Rest Days: Intentionally plan them in your weekly schedule.",
+        "Listen to Your Body for Unscheduled Rest: Take an extra day off if you feel run down.",
+        "Light Cross-Training Can Be Okay: A very easy swim or bike ride can be restorative.",
+        "Get a Massage: A sports massage can help with muscle recovery.",
+        "Mentally Recharge: Give your mind a break from the focus of training.",
+        "Wear Compression Gear: This can help improve circulation and reduce soreness.",
+        "Elevate Your Legs: Lie on your back with your legs up a wall to reduce swelling.",
+        "Spend Time with Loved Ones: Nurture your social connections.",
+        "Read a Book or Watch a Movie: Engage in relaxing and enjoyable activities.",
+        "Prepare Your Gear for the Next Run: Clean your shoes, charge your watch, etc.",
+        "Listen to a Running Podcast: Stay inspired and learn something new.",
+        "Embrace the Stillness: Rest is a productive and necessary part of your journey."
+    ]
+};
+
+const activityIconMap = {
+    'base': 'icons/base_run.svg',
+    'easy': 'icons/easy_run.svg',
+    'fartlek': 'icons/fartlek_run.svg',
+    'tempo': 'icons/tempo_run.svg',
+    'interval': 'icons/interval_run.svg',
+    'intervals': 'icons/interval_run.svg', // Alias for interval
+    'long': 'icons/long_run.svg',
+    'long run': 'icons/long_run.svg', // Alias for long run
+    'rest': 'icons/rest_day.svg',
+    'recovery': 'icons/easy_run.svg', // Assuming recovery runs use easy icon
+    // Consider adding 'strides', 'hills', 'race' if specific icons are made
+    // For now, they will not have an icon.
+};
+
 let currentRaceDate = null; // The calculated date of the race.
 let currentTodayViewDate = null; // Stores the date currently displayed in the "Today's Training" card.
 let calendarCurrentDisplayDate = new Date(); // The month/year the calendar is currently showing.
@@ -253,7 +490,65 @@ document.addEventListener('DOMContentLoaded', () => {
         applyTheme('light');
     }
     // --- End of Dark Mode Toggle ---
+
+    // Initialize modals for animation
+    if (mileageChartModal) {
+        mileageChartModal.classList.add('modal-base-style', 'modal-hidden-state');
+    }
+    if (updatesModal) {
+        updatesModal.classList.add('modal-base-style', 'modal-hidden-state');
+    }
+
+    populateAndScrollRunnersList(); // Populate and start scrolling names
 });
+
+/**
+ * Populates the #runners-list with names from marathonGreats,
+ * duplicates them for seamless scrolling, and applies the scrolling animation.
+ */
+function populateAndScrollRunnersList() {
+    const runnersListElement = document.getElementById('runners-list');
+    if (!runnersListElement) {
+        console.warn('Runners list element (#runners-list) not found.');
+        return;
+    }
+
+    // Clear any existing items
+    runnersListElement.innerHTML = '';
+
+    if (marathonGreats.length === 0) {
+        // Optionally display a message if the list is empty
+        // const li = document.createElement('li');
+        // li.textContent = "No names to display.";
+        // runnersListElement.appendChild(li);
+        return; // No need to proceed if there are no names
+    }
+
+    // 1. Populate the list with initial set of names
+    marathonGreats.forEach(name => {
+        const li = document.createElement('li');
+        li.textContent = name;
+        runnersListElement.appendChild(li);
+    });
+
+    // 2. Duplicate list items for seamless scrolling
+    //    Only duplicate if the container is visible (md:block implies it might be hidden on small screens)
+    const scrollWidget = document.getElementById('runners-scroll-widget');
+    if (scrollWidget && getComputedStyle(scrollWidget).display !== 'none') {
+        const listItems = runnersListElement.querySelectorAll('li');
+        if (listItems.length > 0) { // Check if items were actually added
+            listItems.forEach(item => {
+                runnersListElement.appendChild(item.cloneNode(true));
+            });
+        }
+    }
+
+    // 3. Add 'scrolling' class to start animation
+    //    Only add if there are items to scroll (which implies marathonGreats.length > 0)
+    if (runnersListElement.hasChildNodes()) { // Check if list is populated
+        runnersListElement.classList.add('scrolling');
+    }
+}
 
 /**
  * Initializes the main application after a successful login and data fetch.
@@ -262,47 +557,78 @@ document.addEventListener('DOMContentLoaded', () => {
 function initializeApp() {
     if(loadingMessageDiv) loadingMessageDiv.classList.add('hidden');
     if(errorMessageDiv) errorMessageDiv.classList.add('hidden');
-    if(appContent) appContent.innerHTML = '';
+    if(appContent) appContent.innerHTML = ''; // Clear previous content if any
 
-    // Add event listeners to the main navigation buttons.
-    if(navOverview) navOverview.addEventListener('click', renderOverview);
-    if(navPlan) navPlan.addEventListener('click', renderTrainingPlan);
-    if(navCalendar) navCalendar.addEventListener('click', renderCalendarTab);
-    if(navRace) navRace.addEventListener('click', renderRaceTab);
-    if(navCompanion) navCompanion.addEventListener('click', renderCompanionTab);
-    if(navInfo) navInfo.addEventListener('click', renderInfoTab);
-
-    // Add event listeners for the mileage chart modal
-    if(mileageChartModal && closeMileageChartBtn) {
-        closeMileageChartBtn.addEventListener('click', () => mileageChartModal.classList.add('hidden'));
-        mileageChartModal.addEventListener('click', (e) => {
-            if (e.target.id === 'mileage-chart-modal') {
-                mileageChartModal.classList.add('hidden');
-            }
-        });
+    // Start fade-out of login screen
+    if (loginContainer) {
+        loginContainer.classList.remove('screen-is-fading-in'); // Precaution
+        loginContainer.classList.add('screen-is-fading-out');
     }
 
-    // Add event listeners for the new updates modal
-    if(updatesModal && closeUpdatesModalBtn) {
-        closeUpdatesModalBtn.addEventListener('click', () => updatesModal.classList.add('hidden'));
-        updatesModal.addEventListener('click', (e) => {
-             // Closes modal if user clicks on the background overlay
-            if (e.target.id === 'updates-modal') {
-                updatesModal.classList.add('hidden');
-            }
-        });
-    }
+    setTimeout(() => {
+        if (loginContainer) {
+            loginContainer.classList.add('hidden'); // display:none after fade
+            loginContainer.classList.remove('screen-is-fading-out');
+        }
 
-    renderOverview(); // Render the default "Overview" tab.
-    if(mainAppWrapper) mainAppWrapper.classList.remove('hidden');
-    if(loginContainer) loginContainer.classList.add('hidden');
+        if (mainAppWrapper) {
+            mainAppWrapper.classList.remove('hidden'); // display:block/flex, but still opacity:0 due to CSS rule for #main-app-wrapper
 
-    // Initialize currentTodayViewDate to today
-    currentTodayViewDate = new Date();
-    currentTodayViewDate.setHours(0, 0, 0, 0);
+            // Brief delay for browser to render mainAppWrapper before starting fade-in
+            setTimeout(() => {
+                if (mainAppWrapper) { // Check again in case something went wrong
+                    mainAppWrapper.classList.remove('screen-is-fading-out'); // Precaution
+                    mainAppWrapper.classList.add('screen-is-fading-in'); // Start fade-in
+                }
+            }, 20);
+        }
 
-    // Show the updates modal after the main app is visible.
-    showUpdatesModalIfNeeded();
+        // Original initializeApp logic (nav listeners, modal setup, initial render)
+        if(navOverview) navOverview.addEventListener('click', renderOverview);
+        if(navPlan) navPlan.addEventListener('click', renderTrainingPlan);
+        if(navCalendar) navCalendar.addEventListener('click', renderCalendarTab);
+        if(navRace) navRace.addEventListener('click', renderRaceTab);
+        if(navCompanion) navCompanion.addEventListener('click', renderCompanionTab);
+        if(navInfo) navInfo.addEventListener('click', renderInfoTab);
+
+        // Add event listeners for the mileage chart modal
+        if(mileageChartModal && closeMileageChartBtn) {
+            closeMileageChartBtn.addEventListener('click', () => {
+                mileageChartModal.classList.add('modal-hidden-state');
+                mileageChartModal.classList.remove('modal-visible-state');
+            });
+            mileageChartModal.addEventListener('click', (e) => {
+                if (e.target.id === 'mileage-chart-modal') {
+                    mileageChartModal.classList.add('modal-hidden-state');
+                    mileageChartModal.classList.remove('modal-visible-state');
+                }
+            });
+        }
+
+        // Add event listeners for the new updates modal
+        if(updatesModal && closeUpdatesModalBtn) {
+            closeUpdatesModalBtn.addEventListener('click', () => {
+                updatesModal.classList.add('modal-hidden-state');
+                updatesModal.classList.remove('modal-visible-state');
+            });
+            updatesModal.addEventListener('click', (e) => {
+                if (e.target.id === 'updates-modal') {
+                    updatesModal.classList.add('modal-hidden-state');
+                    updatesModal.classList.remove('modal-visible-state');
+                }
+            });
+        }
+
+        renderOverview(); // Render the default "Overview" tab.
+
+        // Initialize currentTodayViewDate to today
+        currentTodayViewDate = new Date();
+        currentTodayViewDate.setHours(0, 0, 0, 0);
+
+        // Show the updates modal after the main app is visible.
+        showUpdatesModalIfNeeded();
+
+    }, 400); // Matches CSS transition duration (0.4s) for loginContainer fade-out
 }
 
 // --- LOGIN & DATA FETCHING ---
@@ -317,18 +643,35 @@ async function handleLogin() {
     loginErrorMessageDiv.classList.add('hidden');
     loginLoadingMessageDiv.classList.remove('hidden');
     currentWebAppUrl = userSpecificDataSources[userId];
+
+    const loginButtonWrapper = document.getElementById('loginButtonWrapper'); // Get the wrapper
+
     if (currentWebAppUrl) {
         localStorage.setItem('lastUserID', userId); // Remember user for next visit.
         localStorage.setItem('lastWebAppUrl', currentWebAppUrl);
+
+        if (loginButtonWrapper) {
+            loginButtonWrapper.classList.add('animate-runners');
+        }
+
         const success = await fetchMarathonPlan(currentWebAppUrl);
+
+        if (loginButtonWrapper) {
+            loginButtonWrapper.classList.remove('animate-runners'); // Stop animation
+        }
+
         if (success) initializeApp();
         else {
             loginLoadingMessageDiv.classList.add('hidden');
+            // Ensure animation stops on error too, though already handled above
         }
     } else {
         loginErrorMessageDiv.textContent = "Invalid User ID. Try again or contact admin.";
         loginErrorMessageDiv.classList.remove('hidden');
         loginLoadingMessageDiv.classList.add('hidden');
+        if (loginButtonWrapper) { // Also stop animation if User ID was invalid from start
+            loginButtonWrapper.classList.remove('animate-runners');
+        }
     }
 }
 
@@ -545,6 +888,8 @@ function renderTodaysTraining() {
     });
 
     let activityContentHtml = '';
+    let iconHtml = ''; // Initialize iconHtml
+    // notesBoxHtml related variables and logic will be removed.
     const isActualToday = isSameDay(displayDate, new Date(new Date().setHours(0,0,0,0)));
     const titleText = isActualToday ? "Today" : formatDate(displayDate, { weekday: 'short' });
 
@@ -574,27 +919,85 @@ function renderTodaysTraining() {
 
     if (todaysActivity) {
         const activityTextForDisplay = todaysActivity.activity.replace(/^[^:]+:\s*/, '');
-        const activityDescriptionOnly = todaysActivity.activity.replace(/^[^:]+:\s*/, '').trim();
-        const firstWord = activityDescriptionOnly.split(" ")[0].toLowerCase().replace(/:$/, '');
-        const colorClass = getActivityTextColorClass(firstWord);
+
+        // New logic to determine activityTypeForClass
+        let activityTypeForClass = '';
+        const fullActivityDescriptionLower = todaysActivity.activity.toLowerCase(); // Use the full original activity string
+
+        if (fullActivityDescriptionLower.includes('long run')) {
+            activityTypeForClass = 'long run';
+        } else if (fullActivityDescriptionLower.includes('easy run')) {
+            activityTypeForClass = 'easy run';
+        } else if (fullActivityDescriptionLower.includes('recovery run') || fullActivityDescriptionLower.includes('recovery')) {
+            activityTypeForClass = 'recovery';
+        } else if (fullActivityDescriptionLower.includes('base run')) {
+            activityTypeForClass = 'base';
+        } else if (fullActivityDescriptionLower.includes('tempo run') || fullActivityDescriptionLower.includes('tempo:')) {
+            activityTypeForClass = 'tempo';
+        } else if (fullActivityDescriptionLower.includes('interval training') || fullActivityDescriptionLower.includes('intervals:')) {
+            activityTypeForClass = 'interval';
+        } else if (fullActivityDescriptionLower.includes('fartlek')) {
+            activityTypeForClass = 'fartlek';
+        } else if (fullActivityDescriptionLower.includes('strides') || fullActivityDescriptionLower.includes('hills')) {
+            activityTypeForClass = 'strides/hills';
+        } else if (fullActivityDescriptionLower.includes('rest day') || fullActivityDescriptionLower.startsWith('rest:')) {
+            activityTypeForClass = 'rest';
+        } else if (fullActivityDescriptionLower.includes('zone test') || fullActivityDescriptionLower.includes('zonetest')) {
+            activityTypeForClass = 'zonetest';
+        } else if (fullActivityDescriptionLower.includes('race pace') || fullActivityDescriptionLower.includes('race simulation') || fullActivityDescriptionLower.includes('race day')) {
+            activityTypeForClass = 'race';
+        } else if (fullActivityDescriptionLower.includes('zone')) { // General zone as a lower priority
+            activityTypeForClass = 'zone';
+        } else if (fullActivityDescriptionLower.includes('double')) {
+            activityTypeForClass = 'double';
+        } else if (fullActivityDescriptionLower.includes('mobility')) {
+            activityTypeForClass = 'mobility';
+        } else {
+            const parts = todaysActivity.activity.split(':');
+            if (parts.length > 0) {
+                activityTypeForClass = parts[0].trim().toLowerCase();
+            } else {
+                activityTypeForClass = fullActivityDescriptionLower;
+            }
+        }
+
+        const colorClass = getActivityTextColorClass(activityTypeForClass);
+
+        // Updated Icon logic
+        let iconPath = null;
+        const iconKey = activityTypeForClass; // Use the more accurate activityTypeForClass
+
+        if (activityIconMap[iconKey]) {
+            iconPath = activityIconMap[iconKey];
+        } else if (iconKey.startsWith('long')) {
+            iconPath = activityIconMap['long run'] || activityIconMap['long'];
+        } else if (iconKey.startsWith('easy')) {
+            iconPath = activityIconMap['easy'];
+        } else if (iconKey.startsWith('interval')) {
+            iconPath = activityIconMap['interval'] || activityIconMap['intervals'];
+        } // Add more specific fallbacks if needed for other types
+
+        if (iconPath) {
+            iconHtml = `<img src="${iconPath}" alt="${iconKey} icon" class="training-activity-icon ml-2">`; // Added ml-2 for spacing
+        }
 
         const lt2PaceString = marathonPlan?.settings?.defaultLt2Speed || "N/A";
         const paceString = getPaceStringForActivity(todaysActivity.activity, lt2PaceString);
-        let paceHtml = paceString ? `<p class="pace-text text-lg font-semibold mt-1 ${colorClass}">Pace: ${paceString}</p>` : '';
+        // Removed ${colorClass} and added static-dark-pace-text
+        let paceHtml = paceString ? `<p class="pace-text text-lg font-semibold mt-1 static-dark-pace-text">Pace: ${paceString}</p>` : '';
 
         activityContentHtml = `
             <div class="todays-activity-box">
                 <p><strong class="activity-text ${colorClass}">${activityTextForDisplay}</strong></p>
                 ${paceHtml}
-                <p class="text-xs text-stone-500 mt-2">Phase: ${todaysActivity.phaseName} | Week: ${todaysActivity.weekNum}</p>
+                <div class="activity-meta-container flex items-center mt-2">
+                    <p class="text-xs text-stone-500">Phase: ${todaysActivity.phaseName} | Week: ${todaysActivity.weekNum}</p>
+                    ${iconHtml}
+                </div>
             </div>
         `;
         if (todaysActivity.notes) {
-            notesBoxHtml = `
-                <div class="todays-weekly-notes-box">
-                    <p class="text-sm italic"><strong class="text-black text-xs">Weekly Notes:</strong> <span class="text-stone-800 text-sm">${todaysActivity.notes}</span></p>
-                </div>
-            `;
+            // notesBoxHtml related logic removed here
         }
     } else {
         let message = `No training scheduled for ${formatDate(displayDate, { month: 'short', day: 'numeric' })}.`;
@@ -607,6 +1010,35 @@ function renderTodaysTraining() {
             }
         }
         activityContentHtml = `<div class="todays-activity-box"><p class="text-stone-700">${message}</p></div>`;
+    }
+
+    let dailyTipHtml = ''; // Initialize empty tip HTML string
+    if (todaysActivity && todaysActivity.activity && typeof activityTips === 'object' && Object.keys(activityTips).length > 0) {
+        const activityDescriptionOnly = todaysActivity.activity.replace(/^[^:]+:\s*/, '').trim();
+        let activityKey = '';
+        const activityDescLower = activityDescriptionOnly.toLowerCase();
+
+        // Prioritize more specific matches
+        if (activityDescLower.includes('long run')) activityKey = 'long';
+        else if (activityDescLower.includes('easy run')) activityKey = 'easy'; // Could also map 'recovery' to 'easy' here if needed
+        else if (activityDescLower.includes('recovery')) activityKey = 'easy';
+        else if (activityDescLower.includes('base run')) activityKey = 'base';
+        else if (activityDescLower.includes('interval')) activityKey = 'interval'; // Catches "intervals" too
+        else if (activityDescLower.includes('fartlek')) activityKey = 'fartlek';
+        else if (activityDescLower.includes('tempo')) activityKey = 'tempo';
+        else if (activityDescLower.includes('rest')) activityKey = 'rest';
+        else { // Fallback to first word if no specific phrase matched
+            activityKey = activityDescLower.split(" ")[0].replace(/:$/, '');
+        }
+
+        if (activityTips[activityKey] && activityTips[activityKey].length > 0) {
+            const tipsForActivity = activityTips[activityKey];
+            const randomTip = tipsForActivity[Math.floor(Math.random() * tipsForActivity.length)];
+            dailyTipHtml = `
+                <div id="daily-tip-container" class="mt-3">
+                    <p class="daily-tip-text"><strong>Tip:</strong> ${randomTip}</p>
+                </div>`;
+        }
     }
 
     const paceCalculatorHtml = `
@@ -623,7 +1055,7 @@ function renderTodaysTraining() {
             <div id="today-repeats-content" class="mt-1"></div>
         </div>
     `;
-    container.innerHTML = titleHtml + activityContentHtml + notesBoxHtml + paceCalculatorHtml;
+    container.innerHTML = titleHtml + activityContentHtml + dailyTipHtml + paceCalculatorHtml; // Removed notesBoxHtml
 
     // Add event listeners for new navigation arrows
     const prevDayBtn = document.getElementById('todayPrevDay');
@@ -852,7 +1284,10 @@ async function showUpdatesModalIfNeeded() {
         </div>`).join('');
 
         container.innerHTML = `<h2 class="text-2xl font-bold text-center mb-4">Team Updates</h2><div class="space-y-4">${list}</div>`;
-        modal.classList.remove('hidden');
+        modal.classList.remove('hidden'); // Ensure it's not display:none for animation
+        // modal-base-style should already be on the element from DOMContentLoaded
+        modal.classList.remove('modal-hidden-state');
+        modal.classList.add('modal-visible-state');
 
     } catch(error) {
         console.error("Failed to show updates modal:", error);
@@ -1067,7 +1502,10 @@ function renderWeekDetails(phaseIndex, weekIndex) {
     const showMileageChartBtnPlan = document.getElementById('showMileageChartBtnPlan'); // Re-fetch
     if(showMileageChartBtnPlan) showMileageChartBtnPlan.addEventListener('click', () => {
         if(mileageChartModal) {
-            mileageChartModal.classList.remove('hidden');
+            mileageChartModal.classList.remove('hidden'); // Ensure it's not display:none for animation
+            // modal-base-style should already be on the element from DOMContentLoaded
+            mileageChartModal.classList.remove('modal-hidden-state');
+            mileageChartModal.classList.add('modal-visible-state');
             renderMileageChart();
         }
     });
@@ -1453,20 +1891,52 @@ function renderInfoTab() {
 // --- PACE CALCULATOR FUNCTIONS ---
 // (These are called from within renderTodaysTraining, which is part of OVERVIEW TAB)
 
-function getActivityTextColorClass(activityFirstWord) {
-    switch (activityFirstWord) {
+function getActivityTextColorClass(activityString) { // activityString is now the determined type like "long run", "easy run", "tempo"
+    if (!activityString) return '';
+    const type = activityString.toLowerCase().trim(); // Ensure it's lowercase and trimmed
+
+    if (type === 'long run') { // Specific check for "long run"
+        return 'activity-text-long-run'; // New purple class
+    } else if (type === 'easy run' || type === 'easy') {
+        return 'activity-text-easy';
+    } else if (type === 'recovery') {
+        return 'activity-text-recovery';
+    } else if (type === 'base' || type === 'base run') {
+        return 'activity-text-base';
+    } else if (type === 'tempo' || type === 'tempo run') {
+        return 'activity-text-tempo';
+    } else if (type === 'interval' || type === 'intervals') {
+        return 'activity-text-interval';
+    } else if (type === 'fartlek') {
+        return 'activity-text-fartlek';
+    } else if (type === 'strides/hills' || type === 'str' || type === 'hills') {
+        return 'activity-text-str-hills';
+    } else if (type === 'rest') {
+        return 'activity-text-rest';
+    } else if (type === 'zone test' || type === 'zonetest') {
+        return 'activity-text-zonetest';
+    } else if (type === 'race' || type === 'race day' || type === 'race pace') { // Consolidate race types
+        return 'activity-text-race'; // Fuchsia color
+    } else if (type === 'zone') { // General zone type if no other specific match
+        return 'activity-text-zone-race'; // Original violet for general "Zone"
+    } else if (type === 'double') {
+        return 'activity-text-double';
+    } else if (type === 'mobility') {
+        return 'activity-text-mobility';
+    }
+    // Add a fallback for unrecognized first words from the old logic if necessary,
+    // or return a default class. For now, return empty if no match.
+    const firstWordOfType = type.split(" ")[0];
+    switch (firstWordOfType) {
+        // Keep a minimal switch for very generic single-word types if the above if/else if doesn't catch them
+        // This is mostly a safety net now.
         case 'easy': return 'activity-text-easy';
-        case 'recovery': return 'activity-text-recovery';
         case 'base': return 'activity-text-base';
         case 'tempo': return 'activity-text-tempo';
         case 'interval': case 'intervals': return 'activity-text-interval';
         case 'fartlek': return 'activity-text-fartlek';
-        case 'str': case 'hills': return 'activity-text-str';
         case 'rest': return 'activity-text-rest';
-        case 'zone': case 'race': return 'activity-text-zone';
-        case 'double': return 'activity-text-double';
-        case 'mobility': return 'activity-text-mobility';
-        default: return '';
+        default: return ''; // Default if no specific class
     }
 }
 
